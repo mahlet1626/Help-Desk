@@ -14,7 +14,7 @@ import SignInStyleWrapper from "./signin.style";
 // import { toast } from "react-toastify";
 import { notification } from "antd";
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../firebase'
 
 // import app from "../../firebase.js";

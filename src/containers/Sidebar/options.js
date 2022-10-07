@@ -39,28 +39,33 @@ const options = [
     ],
   },
   {
-    key: 'messenger',
-    label: 'Messenger',
-    leftIcon: 'ion-bag',
-    children: [
-      {
-        key: 'messenger_management',
-        label: 'Messenger Management',
-      },
-      {
-        key: 'trip_history',
-        label: 'Messenger Trip History',
-      },
-      // {
-      //   key: 'checkout',
-      //   label: 'sidebar.checkout',
-      // },
-      // {
-      //   key: 'card',
-      //   label: 'sidebar.cards',
-      // },
-    ],
+    key: 'messenger_management',
+    label: 'Messenger Management',
+    leftIcon: 'ion-android-mail',
   },
+  // {
+  //   key: 'messenger',
+  //   label: 'Messenger',
+  //   leftIcon: 'ion-bag',
+  //   children: [
+  //     {
+  //       key: 'messenger_management',
+  //       label: 'Messenger Management',
+  //     },
+  //     {
+  //       key: 'trip_history',
+  //       label: 'Messenger Trip History',
+  //     },
+  // {
+  //   key: 'checkout',
+  //   label: 'sidebar.checkout',
+  // },
+  // {
+  //   key: 'card',
+  //   label: 'sidebar.cards',
+  // },
+  //   ],
+  // },
   {
     key: 'pricing_management',
     label: 'Pricing Management',

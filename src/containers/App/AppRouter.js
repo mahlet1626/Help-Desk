@@ -16,6 +16,10 @@ const routes = [
     path: 'corporate_management',
     component: asyncComponent(() => import('../Corporate/corporate_management')),
   },
+  {
+    path: 'trip_history',
+    component: asyncComponent(() => import('../Messenger/trip_history/trip_history')),
+  },
 
 
   {

@@ -55,101 +55,190 @@ class Articles extends Component {
   render() {
     const { modalActive, articles } = this.props;
     const { article } = clone(this.props);
-    const dataSource = [];
-    Object.keys(articles).map((article, index) => {
-      return dataSource.push({
-        ...articles[article],
-        key: article,
-      });
-    });
+    const dataSource = [{ "name": "Abebe", "email": "abebe@gmail.com" }];
+    // Object.keys(articles).map((article, index) => {
+    //   return dataSource.push({
+    //     ...articles[article],
+    //     key: article,
+    //   });
+    // });
 
-    const rowSelection = {
-      onChange: (selectedRowKeys, selectedRows) => { },
-    };
+    // const rowSelection = {
+    //   onChange: (selectedRowKeys, selectedRows) => { },
+    // };
 
     const columns = [
       {
-        title: 'Title',
-        dataIndex: 'title',
-        key: 'title',
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
         width: '200px',
         sorter: (a, b) => {
-          if (a.title < b.title) return -1;
-          if (a.title > b.title) return 1;
+          if (a.name < b.name) return -1;
+          if (a.name > b.name) return 1;
           return 0;
         },
         render: (text, row) => {
-          const trimByWord = sentence => {
-            let result = sentence;
-            let resultArray = result.split(' ');
-            if (resultArray.length > 7) {
-              resultArray = resultArray.slice(0, 7);
-              result = resultArray.join(' ') + '...';
-            }
-            return result;
-          };
-
-          return trimByWord(row.title);
+          return (
+            <a href="# "> {row.name} </a>
+          );
         },
+        // render: (text, row) => {
+        //   const trimByWord = sentence => {
+        //     let result = sentence;
+        //     let resultArray = result.split(' ');
+        //     if (resultArray.length > 7) {
+        //       resultArray = resultArray.slice(0, 7);
+        //       result = resultArray.join(' ') + '...';
+        //     }
+        //     return result;
+        //   };
+
+        //   return trimByWord(row.title);
+        // },
       },
       {
-        title: 'Description',
-        dataIndex: 'description',
-        key: 'description',
-        width: '360px',
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+        width: '250px',
         sorter: (a, b) => {
           if (a.description < b.description) return -1;
           if (a.description > b.description) return 1;
           return 0;
         },
-        render: (text, row) => {
-          const trimByWord = sentence => {
-            let result = sentence;
-            let resultArray = result.split(' ');
-            if (resultArray.length > 20) {
-              resultArray = resultArray.slice(0, 20);
-              result = resultArray.join(' ') + '...';
-            }
-            return result;
-          };
+        // render: (text, row) => {
+        //   const trimByWord = sentence => {
+        //     let result = sentence;
+        //     let resultArray = result.split(' ');
+        //     if (resultArray.length > 20) {
+        //       resultArray = resultArray.slice(0, 20);
+        //       result = resultArray.join(' ') + '...';
+        //     }
+        //     return result;
+        //   };
 
-          return trimByWord(row.description);
-        },
+        //   return trimByWord(row.description);
+        // },
       },
       {
-        title: 'Excerpt',
-        dataIndex: 'excerpt',
-        key: 'excerpt',
+        title: 'Phone',
+        dataIndex: 'phone',
+        key: 'phone',
         width: '220px',
         sorter: (a, b) => {
           if (a.excerpt < b.excerpt) return -1;
           if (a.excerpt > b.excerpt) return 1;
           return 0;
         },
-        render: (text, row) => {
-          const trimByWord = sentence => {
-            let result = sentence;
-            let resultArray = result.split(' ');
-            if (resultArray.length > 8) {
-              resultArray = resultArray.slice(0, 8);
-              result = resultArray.join(' ') + '...';
-            }
-            return result;
-          };
+        // render: (text, row) => {
+        //   const trimByWord = sentence => {
+        //     let result = sentence;
+        //     let resultArray = result.split(' ');
+        //     if (resultArray.length > 8) {
+        //       resultArray = resultArray.slice(0, 8);
+        //       result = resultArray.join(' ') + '...';
+        //     }
+        //     return result;
+        //   };
 
-          return trimByWord(row.excerpt);
-        },
+        //   return trimByWord(row.excerpt);
+        // },
       },
       {
-        title: 'Slugs',
-        dataIndex: 'slug',
+        title: 'Referred By',
+        dataIndex: 'referred_by',
         width: '170px',
-        key: 'slug',
+        key: 'referred_by',
         sorter: (a, b) => {
           if (a.slug < b.slug) return -1;
           if (a.slug > b.slug) return 1;
           return 0;
         },
+      },
+      {
+        title: 'Company Name',
+        dataIndex: 'company_name',
+        className: 'noWrapCell',
+        key: 'company_name',
+        sorter: (a, b) => {
+          if (a.status < b.status) return -1;
+          if (a.status > b.status) return 1;
+          return 0;
+        },
+
+        // render: (text, row) => {
+        //   let className;
+        //   if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
+        //     className = 'draft';
+        //   } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
+        //     className = 'publish';
+        //   }
+        //   return <StatusTag className={className}>{row.status}</StatusTag>;
+        // },
+      },
+      {
+        title: 'Messenger Type',
+        dataIndex: 'messenger_type',
+        className: 'noWrapCell',
+        key: 'messenger_type',
+        sorter: (a, b) => {
+          if (a.status < b.status) return -1;
+          if (a.status > b.status) return 1;
+          return 0;
+        },
+
+        // render: (text, row) => {
+        //   let className;
+        //   if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
+        //     className = 'draft';
+        //   } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
+        //     className = 'publish';
+        //   }
+        //   return <StatusTag className={className}>{row.status}</StatusTag>;
+        // },
+      },
+      {
+        title: 'License Expiry Status',
+        dataIndex: 'expiry_status',
+        className: 'noWrapCell',
+        key: 'expiry_status',
+        sorter: (a, b) => {
+          if (a.status < b.status) return -1;
+          if (a.status > b.status) return 1;
+          return 0;
+        },
+
+        // render: (text, row) => {
+        //   let className;
+        //   if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
+        //     className = 'draft';
+        //   } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
+        //     className = 'publish';
+        //   }
+        //   return <StatusTag className={className}>{row.status}</StatusTag>;
+        // },
+      },
+      {
+        title: 'Driver Wallet Amount',
+        dataIndex: 'wallet_amount',
+        className: 'noWrapCell',
+        key: 'wallet_amount',
+        sorter: (a, b) => {
+          if (a.status < b.status) return -1;
+          if (a.status > b.status) return 1;
+          return 0;
+        },
+
+        // render: (text, row) => {
+        //   let className;
+        //   if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
+        //     className = 'draft';
+        //   } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
+        //     className = 'publish';
+        //   }
+        //   return <StatusTag className={className}>{row.status}</StatusTag>;
+        // },
       },
       {
         title: 'Status',
@@ -162,15 +251,15 @@ class Articles extends Component {
           return 0;
         },
 
-        render: (text, row) => {
-          let className;
-          if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
-            className = 'draft';
-          } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
-            className = 'publish';
-          }
-          return <StatusTag className={className}>{row.status}</StatusTag>;
-        },
+        // render: (text, row) => {
+        //   let className;
+        //   if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
+        //     className = 'draft';
+        //   } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
+        //     className = 'publish';
+        //   }
+        //   return <StatusTag className={className}>{row.status}</StatusTag>;
+        // },
       },
       {
         title: 'Actions',
@@ -206,7 +295,7 @@ class Articles extends Component {
         <Box>
           <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
             <TitleWrapper>
-              <ComponentTitle>Articles</ComponentTitle>
+              <ComponentTitle>Corporate Management</ComponentTitle>
 
               <ButtonHolders>
                 {/* <ActionBtn type="danger" onClick={this.resetRecords}>
@@ -217,7 +306,7 @@ class Articles extends Component {
                   type="primary"
                   onClick={this.handleModal.bind(this, null)}
                 >
-                  Add new record
+                  Add Corporate
                 </ActionBtn>
               </ButtonHolders>
             </TitleWrapper>
@@ -290,7 +379,7 @@ class Articles extends Component {
             </Modal>
             <TableWrapper
               rowKey="key"
-              rowSelection={rowSelection}
+              // rowSelection={rowSelection}
               columns={columns}
               bordered={true}
               dataSource={dataSource}
@@ -308,7 +397,7 @@ class Articles extends Component {
             />
           </ContentHolder>
         </Box>
-      </LayoutContentWrapper>
+      </LayoutContentWrapper >
     );
   }
 }
