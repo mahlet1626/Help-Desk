@@ -412,11 +412,11 @@ const options = [
   //       label: 'sidebar.resetPw',
   //       withoutDashboard: true,
   //     },
-  // {
-  //   key: 'comingSoon',
-  //   label: 'sidebar.comingSoon',
-  //    withoutDashboard: true
-  // }
+  //     {
+  //       key: 'comingSoon',
+  //       label: 'sidebar.comingSoon',
+  //       withoutDashboard: true
+  //     }
   //   ],
   // },
   // ...getDevSidebar,

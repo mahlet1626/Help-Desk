@@ -6,7 +6,11 @@ import customRoutes from '../../customApp/router';
 const routes = [
   {
     path: '',
-    component: asyncComponent(() => import('../Widgets/index.js')),
+    component: asyncComponent(() => import('../Dashboard')),
+  },
+  {
+    path: 'admin_dashboard',
+    component: asyncComponent(() => import('../Dashboard')),
   },
   {
     path: 'messenger_management',
