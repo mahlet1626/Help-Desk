@@ -9,6 +9,16 @@ const routes = [
     component: asyncComponent(() => import('../Widgets/index.js')),
   },
   {
+    path: 'messenger_management',
+    component: asyncComponent(() => import('../Messenger/messenger_management')),
+  },
+  {
+    path: 'corporate_management',
+    component: asyncComponent(() => import('../Corporate/corporate_management')),
+  },
+
+
+  {
     path: 'inbox',
     component: asyncComponent(() => import('../Mail')),
   },

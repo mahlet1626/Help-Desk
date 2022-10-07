@@ -12,7 +12,7 @@ import appActions from "../../redux/app/actions";
 import Logo from "../../components/utility/logo";
 
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
+// const MenuItemGroup = Menu.ItemGroup;
 const { Sider } = Layout;
 
 const {
@@ -69,6 +69,7 @@ class Sidebar extends Component {
   getMenuItem = ({ singleOption, submenuStyle, submenuColor }) => {
     const { key, label, leftIcon, children } = singleOption;
     const url = stripTrailingSlash(this.props.url);
+    // console.log(singleOption)
     if (children) {
       return (
         <SubMenu
@@ -86,6 +87,7 @@ class Sidebar extends Component {
             const linkTo = child.withoutDashboard
               ? `/${child.key}`
               : `${url}/${child.key}`;
+
             return (
               <Menu.Item style={submenuStyle} key={child.key}>
                 <Link style={submenuColor} to={linkTo}>
@@ -163,8 +165,9 @@ class Sidebar extends Component {
               {options.map(singleOption =>
                 this.getMenuItem({ submenuStyle, submenuColor, singleOption })
               )}
+
               {/* Demo Menu */}
-              <SubMenu
+              {/* <SubMenu
                 key="sub1"
                 title={
                   <span className="isoMenuHolder" style={submenuColor}>
@@ -197,7 +200,7 @@ class Sidebar extends Component {
                     <IntlMessages id="sidebar.option4" />
                   </Menu.Item>
                 </MenuItemGroup>
-              </SubMenu>
+              </SubMenu> */}
             </Menu>
           </Scrollbars>
         </Sider>
