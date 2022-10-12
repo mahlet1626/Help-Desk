@@ -71,10 +71,17 @@ const options = [
     label: 'Pricing Management',
     leftIcon: 'ion-android-mail',
   },
+
   {
     key: 'cargo_management',
     label: 'Cargo Management',
     leftIcon: 'ion-android-mail',
+  },
+
+ {
+    key: 'report',
+    label: 'Report',
+    leftIcon: 'ion-clipboard',
   },
 
 

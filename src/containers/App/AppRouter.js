@@ -24,7 +24,10 @@ const routes = [
     path: 'trip_history',
     component: asyncComponent(() => import('../Messenger/trip_history/trip_history')),
   },
-
+  {
+    path: 'report',
+    component: asyncComponent(() => import('../Messenger/report')),
+  },
 
   {
     path: 'inbox',
