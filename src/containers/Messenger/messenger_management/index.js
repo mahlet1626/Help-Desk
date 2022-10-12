@@ -80,7 +80,7 @@ class Articles extends Component {
         },
         render: (text, row) => {
           return (
-            <a href="/trip_history"> {row.name} </a>
+            <a href="/dashboard/trip_history"> {row.name} </a>
           );
         },
         // render: (text, row) => {

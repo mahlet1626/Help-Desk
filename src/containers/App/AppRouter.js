@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: 'trip_history',
-    component: asyncComponent(() => import('../Messenger/trip_history/trip_history')),
+    component: asyncComponent(() => import('../Messenger/trip_history')),
   },
 
 
