@@ -1,17 +1,5 @@
-import React from "react";
 const width = '90%';
 const height = '400px';
-
-const ButtonGroup = () => {
-  return (
-    <>
-      <button>Daily</button>
-      <button>Monthly</button>
-      <button>Annual</button>
-    </>
-  );
-};
-
 
 // export default ButtonGroup;
 
@@ -91,5 +79,5 @@ const ComboChart = {
 export {
 
   ComboChart,
-  ButtonGroup,
+ 
 };

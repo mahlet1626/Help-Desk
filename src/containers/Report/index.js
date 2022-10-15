@@ -8,6 +8,7 @@ import ContentHolder from '../../components/utility/contentHolder';
 import basicStyle from '../../settings/basicStyle';
 import * as configs from './config';
 import ChartWrapper from './chart.style';
+import DatePicker from '../../components/uielements/datePicker';
 
 const GoogleChart = props => (
   <ChartWrapper>
@@ -37,6 +38,7 @@ export default class ReCharts extends Component {
         
             <Box>
               <ContentHolder>
+              <DatePicker />
                 <GoogleChart {...configs.ComboChart} />
               </ContentHolder>
             </Box>
