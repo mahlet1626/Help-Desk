@@ -20,7 +20,7 @@ import {
   ActionWrapper,
   ComponentTitle,
   TableWrapper,
-  StatusTag,
+  // StatusTag,
 } from './articles.style';
 import clone from 'clone';
 
@@ -53,7 +53,9 @@ class Articles extends Component {
   };
 
   render() {
-    const { modalActive, articles } = this.props;
+    const { modalActive,
+      //  articles
+       } = this.props;
     const { article } = clone(this.props);
     const dataSource = [{ "name": "Abebe", "email": "abebe@gmail.com" }];
     // Object.keys(articles).map((article, index) => {

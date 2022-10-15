@@ -20,7 +20,7 @@ import {
   ActionWrapper,
   ComponentTitle,
   TableWrapper,
-  StatusTag,
+  // StatusTag,
 } from './articles.style';
 import clone from 'clone';
 
@@ -53,9 +53,11 @@ class Articles extends Component {
   };
 
   render() {
-    const { modalActive, articles } = this.props;
+    const { modalActive, 
+      // articles
+     } = this.props;
     const { article } = clone(this.props);
-    const dataSource = [{ "name": "Abebe", "email": "abebe@gmail.com" }];
+    const dataSource = [{ "name": "Abebe", "email": "abebe@gmail.com","location_tracking":"Click Here" }];
     // Object.keys(articles).map((article, index) => {
     //   return dataSource.push({
     //     ...articles[article],
@@ -80,7 +82,7 @@ class Articles extends Component {
         },
         render: (text, row) => {
           return (
-            <a href="/trip_history"> {row.name} </a>
+            <a href="/dashboard/trip_history"> {row.name} </a>
           );
         },
         // render: (text, row) => {
@@ -198,6 +200,37 @@ class Articles extends Component {
         //   return <StatusTag className={className}>{row.status}</StatusTag>;
         // },
       },
+      {
+        title: 'Location Tracking',
+        dataIndex: 'location_tracking',
+        className: 'noWrapCell',
+        key: 'location_tracking',
+        sorter: (a, b) => {
+          if (a.status < b.status) return -1;
+          if (a.status > b.status) return 1;
+          return 0;
+        },
+
+        render: (text, row) => {
+          return (
+            <a href="/dashboard/trip_history"> {row.location_tracking} </a>
+          );
+        },
+
+        // render: (text, row) => {
+        //   let className;
+        //   if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
+        //     className = 'draft';
+        //   } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
+        //     className = 'publish';
+        //   }
+        //   return <StatusTag className={className}>{row.status}</StatusTag>;
+        // },
+      },
+
+
+
+
       {
         title: 'License Expiry Status',
         dataIndex: 'expiry_status',

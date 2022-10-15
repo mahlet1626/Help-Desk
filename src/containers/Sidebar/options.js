@@ -5,11 +5,11 @@ const options = [
     label: 'Admin Dashboard',
     leftIcon: 'ion-arrow-graph-up-right',
   },
-  {
-    key: 'location_tracking',
-    label: 'Location Tracking',
-    leftIcon: 'ion-map',
-  },
+  // {
+  //   key: 'location_tracking',
+  //   label: 'Location Tracking',
+  //   leftIcon: 'ion-map',
+  // },
   {
     key: 'dispatch',
     label: 'Dispatch',

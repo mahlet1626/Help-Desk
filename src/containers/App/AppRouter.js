@@ -12,6 +12,12 @@ const routes = [
     path: 'admin_dashboard',
     component: asyncComponent(() => import('../Dashboard')),
   },
+
+  {
+    path: 'dispatch',
+    component: asyncComponent(() => import('../Dispatch')),
+  },
+
   {
     path: 'messenger_management',
     component: asyncComponent(() => import('../Messenger/messenger_management')),
@@ -22,11 +28,11 @@ const routes = [
   },
   {
     path: 'trip_history',
-    component: asyncComponent(() => import('../Messenger/trip_history/trip_history')),
+    component: asyncComponent(() => import('../Messenger/trip_history')),
   },
   {
     path: 'report',
-    component: asyncComponent(() => import('../Messenger/report')),
+    component: asyncComponent(() => import('../Report')),
   },
 
   {

@@ -39,29 +39,29 @@ const WDInfoFormWrapper = styled.div`
       &.expiry {
         color: #000000;
         margin: ${props =>
-          props['data-rtl'] === 'rtl' ? '0 0 10px 10px' : '0 10px 10px 0'};
+    props['data-rtl'] === 'rtl' ? '0 0 10px 10px' : '0 10px 10px 0'};
       }
 
       &::-webkit-input-placeholder {
         text-align: ${props =>
-          props['data-rtl'] === 'rtl' ? 'right' : 'left'};
+    props['data-rtl'] === 'rtl' ? 'right' : 'left'};
         color: ${palette('grayscale', 0)};
       }
 
       &:-moz-placeholder {
         text-align: ${props =>
-          props['data-rtl'] === 'rtl' ? 'right' : 'left'};
+    props['data-rtl'] === 'rtl' ? 'right' : 'left'};
         color: ${palette('grayscale', 0)};
       }
 
       &::-moz-placeholder {
         text-align: ${props =>
-          props['data-rtl'] === 'rtl' ? 'right' : 'left'};
+    props['data-rtl'] === 'rtl' ? 'right' : 'left'};
         color: ${palette('grayscale', 0)};
       }
       &:-ms-input-placeholder {
         text-align: ${props =>
-          props['data-rtl'] === 'rtl' ? 'right' : 'left'};
+    props['data-rtl'] === 'rtl' ? 'right' : 'left'};
         color: ${palette('grayscale', 0)};
       }
     }
