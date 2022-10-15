@@ -35,7 +35,7 @@ export default class ReCharts extends Component {
         <Row style={rowStyle} gutter={gutter} justify="start">
          
         
-            <Box title={configs.ComboChart.title}>
+            <Box>
               <ContentHolder>
                 <GoogleChart {...configs.ComboChart} />
               </ContentHolder>
