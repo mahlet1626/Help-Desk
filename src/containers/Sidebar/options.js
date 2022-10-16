@@ -44,7 +44,12 @@ const options = [
     leftIcon: 'ion-android-mail',
   },
 
- 
+  {
+    key: 'corporate_management',
+    label: 'Corporate Management',
+    leftIcon: 'ion-android-mail',
+  },
+
   // {
   //   key: 'messenger',
   //   label: 'Messenger',
