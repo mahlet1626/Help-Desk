@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Async from '../../helpers/asyncComponent';
-import { Row, Col } from 'antd';
+import { Row, Col,Icon  } from 'antd';
 import PageHeader from '../../components/utility/pageHeader';
 import Box from '../../components/utility/box';
 import LayoutWrapper from '../../components/utility/layoutWrapper.js';
@@ -9,6 +9,19 @@ import basicStyle from '../../settings/basicStyle';
 import * as configs from './config';
 import ChartWrapper from './chart.style';
 import DatePicker from '../../components/uielements/datePicker';
+import TopbarSearch from "../Topbar/topbarSearch";
+
+import Button, { ButtonGroup } from '../../components/uielements/button';
+
+
+
+
+import IntlMessages from '../../components/utility/intlMessages';
+import { rtl } from '../../settings/withDirection';
+
+
+function handleMenuClick(e) {}
+
 
 const GoogleChart = props => (
   <ChartWrapper>
@@ -29,7 +42,12 @@ export default class ReCharts extends Component {
       }
     ];
     const { rowStyle, colStyle, gutter } = basicStyle;
+    const { toggleCollapsed, url, customizedTheme, locale } = this.props;
+    const margin = {
+      margin: rtl === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0'
+    };
     return (
+      
       <LayoutWrapper className="isoMapPage">
         <PageHeader>Google Charts</PageHeader>
         
@@ -38,7 +56,17 @@ export default class ReCharts extends Component {
         
             <Box>
               <ContentHolder>
-              <DatePicker />
+              <Button style={margin}>
+                  Daily
+                </Button>
+                <Button style={margin}>
+                Monthly
+                </Button>
+                <Button style={margin}>
+                  Annual
+                </Button>
+                <DatePicker />
+                <TopbarSearch locale={locale} />
                 <GoogleChart {...configs.ComboChart} />
               </ContentHolder>
             </Box>

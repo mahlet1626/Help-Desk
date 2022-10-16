@@ -213,7 +213,7 @@ class Articles extends Component {
 
         render: (text, row) => {
           return (
-            <a href="/dashboard/trip_history"> {row.location_tracking} </a>
+            <a href="/dashboard/location_tracking"> {row.location_tracking} </a>
           );
         },
 
