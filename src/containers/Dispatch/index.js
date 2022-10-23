@@ -18,6 +18,9 @@ import { googleConfig } from "../../settings/index";
 import BasicMap from "./maps/basic";
 import BasicMarker from "./maps/basicMarker";
 import NoAPIKey from "../../components/utility/noApiKey";
+import Button, { ButtonGroup } from '../../components/uielements/button';
+import { rtl } from '../../settings/withDirection';
+
 const Option = SelectOption;
 
 const selectBefore = (
@@ -58,6 +61,9 @@ export default class extends Component {
       marginBottom: '16px'
     };
     const gutter = 16;
+    const margin = {
+      margin: rtl === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0'
+    };
     return (
       <LayoutWrapper>
         <PageHeader>Google Map</PageHeader>
@@ -71,17 +77,50 @@ export default class extends Component {
               </Box>
             </Col>
             <Col md={12} sm={12} xs={24} style={colStyle}>
-              {/* <Box
-                title={
-                  <IntlMessages id="Map.leaflet.leafletCustomMarkerTitle" />
-                }
-              >
-                <ContentHolder>
-                  <BasicMarker />
-                </ContentHolder>
-              </Box> */}
-            </Col>
+            <Box
+              title={<IntlMessages id="forms.input.basicTitle" />}
+              subtitle={<IntlMessages id="forms.input.basicSubTitle" />}
+            >
+              <ContentHolder>
+              <InputGroup size="large" style={{ marginBottom: '15px' }}>
+                  <Col span="12">
+                    <Input placeholder="First Name" />
+                  </Col>
+                  <Col span="12">
+                    <Input placeholder="Last Name" />
+                  </Col>
+                </InputGroup>
+
+                <InputGroup size="large" style={{ marginBottom: '15px' }}>
+                  <Col span="24">
+                    <Input placeholder="Username" />
+                  </Col>
+                </InputGroup>
+                <InputGroup size="large" style={{ marginBottom: '15px' }}>
+                  <Col span="24">
+                    <Input placeholder="Email" />
+                  </Col>
+                </InputGroup>
+                <InputGroup size="large" style={{ marginBottom: '15px' }}>
+                  <Col span="24">
+                    <Input placeholder="Password" />
+                  </Col>
+                </InputGroup>
+
+                <InputGroup size="large" style={{ marginBottom: '15px' }}>
+
+                <Button type="primary" style={margin}>
+                      Submit
+                </Button>
+
+               </InputGroup>
+              </ContentHolder>
+            </Box>
+          </Col>
+         
           </Row>
+            
+           
         ) : (
           <NoAPIKey />
         )}

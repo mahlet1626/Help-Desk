@@ -60,7 +60,7 @@ export default class extends Component {
     const gutter = 16;
     return (
       <LayoutWrapper>
-        <PageHeader>Google Map</PageHeader>
+       
         {googleConfig.apiKey ? (
           <Row style={rowStyle} gutter={gutter} justify="start">
             

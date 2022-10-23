@@ -82,7 +82,7 @@ class Articles extends Component {
         },
         render: (text, row) => {
           return (
-            <a href="# "> {row.name} </a>
+            row.name
           );
         },
         // render: (text, row) => {
