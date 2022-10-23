@@ -66,7 +66,7 @@ export default class extends Component {
     };
     return (
       <LayoutWrapper>
-        <PageHeader>Google Map</PageHeader>
+        {/* <PageHeader>Google Map</PageHeader> */}
         {googleConfig.apiKey ? (
           <Row style={rowStyle} gutter={gutter} justify="start">
             <Col md={12} sm={12} xs={24} style={colStyle}>
