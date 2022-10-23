@@ -5,6 +5,10 @@ import LayoutWrapper from '../../components/utility/layoutWrapper.js';
 import basicStyle from '../../settings/basicStyle';
 import IsoWidgetsWrapper from './widgets-wrapper';
 import IsoWidgetBox from './widget-box';
+import Button, { ButtonGroup } from '../../components/uielements/button';
+import { rtl } from '../../settings/withDirection';
+import DatePicker from '../../components/uielements/datePicker';
+import TopbarSearch from "../Topbar/topbarSearch";
 import CardWidget from './card/card-widgets';
 // import ProgressWidget from './progress/progress-widget';
 // import SingleProgressWidget from './progress/progress-single';
@@ -58,7 +62,11 @@ export default class extends Component {
         callback(Chart) { },
       },
     ];
-
+    const { gutter } = basicStyle;
+    const { toggleCollapsed, url, customizedTheme, locale } = this.props;
+    const margin = {
+      margin: rtl === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0'
+    };
     const stackConfig = {
       ...rechartConfigs.StackedAreaChart,
       width: window.innerWidth < 450 ? 300 : 500,
@@ -136,6 +144,28 @@ export default class extends Component {
             />
           </IsoWidgetBox>
         </IsoWidgetsWrapper>
+
+        <Row style={rowStyle} gutter={gutter} justify="start">
+        <Box>
+          <ContentHolder>
+        <Button style={margin}>
+             Daily
+        </Button>
+        <Button style={margin}>
+            Monthly
+        </Button>
+        <Button style={margin}>
+            Annual
+        </Button>
+        <DatePicker />
+        <TopbarSearch locale={locale} />
+        <GoogleChart {...configs.ComboChart} />
+        </ContentHolder>
+     </Box>
+</Row>
+
+
+
         {/* </Col>
         </Row> */}
       </LayoutWrapper>

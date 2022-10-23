@@ -84,11 +84,11 @@ const options = [
     leftIcon: 'ion-android-menu',
   },
 
-  {
-    key: 'report',
-    label: 'Report',
-    leftIcon: 'ion-ios-paper',
-  },
+  // {
+  //   key: 'report',
+  //   label: 'Report',
+  //   leftIcon: 'ion-ios-paper',
+  // },
 
   // {
   //   key: 'mailbox',
