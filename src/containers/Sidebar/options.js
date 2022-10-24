@@ -84,6 +84,13 @@ const options = [
     leftIcon: 'ion-android-menu',
   },
 
+
+  // {
+  //   key: '_management',
+  //   label: 'Management',
+  //   leftIcon: 'ion-android-menu',
+  // },
+
   // {
   //   key: 'report',
   //   label: 'Report',

@@ -135,6 +135,8 @@ export default class extends Component {
         </Box>
         {/* </Col>
           <Col md={12} xs={24} style={colStyle}> */}
+          <Row style={rowStyle} gutter={0} justify="start">
+          <Col lg={12} md={12} sm={12} xs={24} style={colStyle}>
         <IsoWidgetsWrapper>
           <IsoWidgetBox>
             {/* TABLE */}
@@ -144,8 +146,8 @@ export default class extends Component {
             />
           </IsoWidgetBox>
         </IsoWidgetsWrapper>
-
-        <Row style={rowStyle} gutter={gutter} justify="start">
+        </Col>
+        <Col lg={12} md={12} sm={12} xs={24} style={colStyle}>
         <Box>
           <ContentHolder>
         <Button style={margin}>
@@ -162,7 +164,13 @@ export default class extends Component {
         <GoogleChart {...configs.ComboChart} />
         </ContentHolder>
      </Box>
-</Row>
+
+        </Col>
+        </Row>
+
+       
+
+
 
 
 
