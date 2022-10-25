@@ -93,7 +93,7 @@ export default class extends Component {
               <StickerWidget
                 number={<IntlMessages id="widget.stickerwidget1.number" />}
                 text={<IntlMessages id="Online Messengers" />}
-                icon="ion-android-camera"
+                icon="ion-ios-world-outline"
                 fontColor="#ffffff"
                 bgColor="#42A5F6"
               />
@@ -119,7 +119,7 @@ export default class extends Component {
               <StickerWidget
                 number={<IntlMessages id="widget.stickerwidget1.number" />}
                 text={<IntlMessages id="Offline Messengers" />}
-                icon="ion-android-cart"
+                icon="ion-android-close"
                 fontColor="#ffffff"
                 bgColor="#F75D81"
               />

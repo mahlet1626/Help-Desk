@@ -3,7 +3,7 @@ const options = [
   {
     key: 'admin_dashboard',
     label: 'Admin Dashboard',
-    leftIcon: 'ion-arrow-graph-up-right',
+    leftIcon: 'ion-speedometer',
   },
   // {
   //   key: 'location_tracking',
@@ -18,7 +18,7 @@ const options = [
   {
     key: 'corporate',
     label: 'Corporate',
-    leftIcon: 'ion-bag',
+    leftIcon: 'ion-ios-briefcase',
     children: [
       {
         key: 'corporate_management',
@@ -41,7 +41,7 @@ const options = [
   {
     key: 'messenger_management',
     label: 'Messenger Management',
-    leftIcon: 'ion-android-mail',
+    leftIcon: 'ion-android-bicycle',
   },
 
   // {
@@ -76,7 +76,7 @@ const options = [
   {
     key: 'pricing_management',
     label: 'Pricing Management',
-    leftIcon: 'ion-arrow-graph-up-right',
+    leftIcon: 'ion-ios-pricetag-outline',
   },
   {
     key: 'cargo_management',

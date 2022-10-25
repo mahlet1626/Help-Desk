@@ -106,7 +106,7 @@ class Articles extends Component {
         }
       },
       {
-        title: 'Starting Point',
+        title: 'Starting Address',
         dataIndex: 'start',
         key: 'start',
         width: '250px',
@@ -117,7 +117,7 @@ class Articles extends Component {
         }
       },
       {
-        title: 'Destination Point',
+        title: 'Destination Address',
         dataIndex: 'destination',
         key: 'destination',
         width: '250px',
