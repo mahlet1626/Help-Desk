@@ -30,6 +30,11 @@ const routes = [
     path: 'trip_history',
     component: asyncComponent(() => import('../Messenger/trip_history')),
   },
+
+  {
+    path: 'ctrip_history',
+    component: asyncComponent(() => import('../Corporate/trip_history')),
+  },
   {
     path: 'location_tracking',
     component: asyncComponent(() => import('../Messenger/location_tracking')),

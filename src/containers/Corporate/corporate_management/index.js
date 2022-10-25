@@ -57,7 +57,7 @@ class Articles extends Component {
       //  articles
        } = this.props;
     const { article } = clone(this.props);
-    const dataSource = [{ "name": "Abebe", "email": "abebe@gmail.com" }];
+    const dataSource = [{ "name": "Company-A", "email": "companya@gmail.com" }];
     // Object.keys(articles).map((article, index) => {
     //   return dataSource.push({
     //     ...articles[article],
@@ -82,7 +82,7 @@ class Articles extends Component {
         },
         render: (text, row) => {
           return (
-            row.name
+            <a href="/dashboard/ctrip_history"> {row.name} </a>
           );
         },
         // render: (text, row) => {
@@ -158,48 +158,8 @@ class Articles extends Component {
           return 0;
         },
       },
-      {
-        title: 'Company Name',
-        dataIndex: 'company_name',
-        className: 'noWrapCell',
-        key: 'company_name',
-        sorter: (a, b) => {
-          if (a.status < b.status) return -1;
-          if (a.status > b.status) return 1;
-          return 0;
-        },
-
-        // render: (text, row) => {
-        //   let className;
-        //   if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
-        //     className = 'draft';
-        //   } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
-        //     className = 'publish';
-        //   }
-        //   return <StatusTag className={className}>{row.status}</StatusTag>;
-        // },
-      },
-      {
-        title: 'Messenger Type',
-        dataIndex: 'messenger_type',
-        className: 'noWrapCell',
-        key: 'messenger_type',
-        sorter: (a, b) => {
-          if (a.status < b.status) return -1;
-          if (a.status > b.status) return 1;
-          return 0;
-        },
-
-        // render: (text, row) => {
-        //   let className;
-        //   if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
-        //     className = 'draft';
-        //   } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
-        //     className = 'publish';
-        //   }
-        //   return <StatusTag className={className}>{row.status}</StatusTag>;
-        // },
-      },
+      
+    
       {
         title: 'License Expiry Status',
         dataIndex: 'expiry_status',
@@ -222,7 +182,7 @@ class Articles extends Component {
         // },
       },
       {
-        title: 'Driver Wallet Amount',
+        title: 'Wallet Amount',
         dataIndex: 'wallet_amount',
         className: 'noWrapCell',
         key: 'wallet_amount',

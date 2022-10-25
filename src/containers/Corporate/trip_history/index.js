@@ -14,8 +14,6 @@ import Timeline, {
 } from '../../../components/uielements/timeline';
 import IsoWidgetsWrapper from '../widgets-wrapper';
 import CardWidget from '../card/card-widgets';
-import ProgressWidget from '../progress/progress-widget';
-import IsoWidgetBox from '../widget-box';
 import { StackedAreaChart } from '../../Charts/recharts/charts/';
 import * as rechartConfigs from '../../Charts/recharts/config';
 const Tag = props => (
@@ -36,7 +34,28 @@ export default class extends Component {
       <LayoutWrapper>
         {/* <PageHeader>{<IntlMessages id="uiElements.cards.cards" />}</PageHeader> */}
         <Row style={rowStyle} gutter={0} justify="start">
-          
+            <Col lg={12} md={12} sm={12} xs={24} style={colStyle}>
+              <IsoWidgetsWrapper>
+                {/* Card Widget */}
+                <CardWidget
+                  icon="ion-android-chat"
+                  iconcolor="#42A5F5"
+                  number={<IntlMessages id="widget.cardwidget1.number" />}
+                  text="Total Trip"
+                />
+              </IsoWidgetsWrapper>
+              </Col>
+              <Col lg={12} md={12} sm={12} xs={24} style={colStyle}>
+              <IsoWidgetsWrapper gutterBottom={20}>
+                {/* Card Widget */}
+                <CardWidget
+                  icon="ion-music-note"
+                  iconcolor="#F75D81"
+                  number={<IntlMessages id="widget.cardwidget2.number" />}
+                  text="Remainig Wallet"
+                />
+              </IsoWidgetsWrapper>
+              </Col>
               {/* <Col lg={8} md={12} sm={12} xs={24} style={colStyle}>
               <IsoWidgetsWrapper>
                 {/* Card Widget */}
