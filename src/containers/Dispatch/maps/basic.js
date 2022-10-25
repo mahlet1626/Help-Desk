@@ -36,7 +36,7 @@ class BasicMap extends Component {
           <BasicMapWrapper>
             <div
               className="isoGoogleMap"
-              style={{ height: '650px', width: '100%' }}
+              style={{ height: '350px', width: '100%' }}
               ref={this.loadMap}
             />
           </BasicMapWrapper>

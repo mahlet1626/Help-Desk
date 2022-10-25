@@ -44,7 +44,7 @@ const width = '90%';
 const height = '400px';
 
 const tableDataList = clone(dataList);
-tableDataList.size = 7;
+tableDataList.size = 8;
 
 export default class extends Component {
   render() {
@@ -74,20 +74,20 @@ export default class extends Component {
     return (
       <LayoutWrapper>
         <Row style={rowStyle} gutter={0} justify="start">
-          <Col lg={6} md={12} sm={12} xs={24} style={colStyle}>
+          <Col lg={6} md={6} sm={12} xs={24} style={colStyle}>
             <IsoWidgetsWrapper>
               {/* Sticker Widget */}
               <StickerWidget
                 number={<IntlMessages id="widget.stickerwidget1.number" />}
                 text={<IntlMessages id="Total Messengers" />}
-                icon="ion-email-unread"
+                icon="ion-android-bicycle"
                 fontColor="#ffffff"
                 bgColor="#7266BA"
               />
             </IsoWidgetsWrapper>
           </Col>
 
-          <Col lg={6} md={12} sm={12} xs={24} style={colStyle}>
+          <Col lg={6} md={6} sm={12} xs={24} style={colStyle}>
             <IsoWidgetsWrapper>
               {/* Sticker Widget */}
               <StickerWidget
@@ -100,7 +100,7 @@ export default class extends Component {
             </IsoWidgetsWrapper>
           </Col>
 
-          <Col lg={6} md={12} sm={12} xs={24} style={colStyle}>
+          <Col lg={6} md={6} sm={12} xs={24} style={colStyle}>
             <IsoWidgetsWrapper>
               {/* Sticker Widget */}
               <StickerWidget
@@ -113,7 +113,7 @@ export default class extends Component {
             </IsoWidgetsWrapper>
           </Col>
 
-          <Col lg={6} md={12} sm={12} xs={24} style={colStyle}>
+          <Col lg={6} md={6} sm={12} xs={24} style={colStyle}>
             <IsoWidgetsWrapper>
               {/* Sticker Widget */}
               <StickerWidget
@@ -135,40 +135,40 @@ export default class extends Component {
         </Box>
         {/* </Col>
           <Col md={12} xs={24} style={colStyle}> */}
-          <Row style={rowStyle} gutter={0} justify="start">
+        <Row style={rowStyle} gutter={0} justify="start">
           <Col lg={12} md={12} sm={12} xs={24} style={colStyle}>
-        <IsoWidgetsWrapper>
-          <IsoWidgetBox>
-            {/* TABLE */}
-            <TableViews.SimpleView
-              tableInfo={tableinfos[0]}
-              dataList={tableDataList}
-            />
-          </IsoWidgetBox>
-        </IsoWidgetsWrapper>
-        </Col>
-        <Col lg={12} md={12} sm={12} xs={24} style={colStyle}>
-        <Box>
-          <ContentHolder>
-        <Button style={margin}>
-             Daily
-        </Button>
-        <Button style={margin}>
-            Monthly
-        </Button>
-        <Button style={margin}>
-            Annual
-        </Button>
-        <DatePicker />
-        <TopbarSearch locale={locale} />
-        <GoogleChart {...configs.ComboChart} />
-        </ContentHolder>
-     </Box>
+            <IsoWidgetsWrapper>
+              <IsoWidgetBox>
+                {/* TABLE */}
+                <TableViews.SimpleView
+                  tableInfo={tableinfos[0]}
+                  dataList={tableDataList}
+                />
+              </IsoWidgetBox>
+            </IsoWidgetsWrapper>
+          </Col>
+          <Col lg={12} md={12} sm={12} xs={24} style={colStyle}>
+            <Box>
+              <ContentHolder>
+                <Button style={margin}>
+                  Daily
+                </Button>
+                <Button style={margin}>
+                  Monthly
+                </Button>
+                <Button style={margin}>
+                  Annual
+                </Button>
+                <DatePicker />
+                <TopbarSearch locale={locale} />
+                <GoogleChart {...configs.ComboChart} />
+              </ContentHolder>
+            </Box>
 
-        </Col>
+          </Col>
         </Row>
 
-       
+
 
 
 
