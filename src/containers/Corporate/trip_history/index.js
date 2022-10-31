@@ -88,7 +88,7 @@ const content = (
           title="Wallet"
           trigger="click"
         >
-         <PopoverWrapper><a href="/dashboard/recharge" > Recharge </a> <br/></PopoverWrapper>
+         <PopoverWrapper><a> Recharge </a> <br/></PopoverWrapper>
           
         </Popover>
     </p>
