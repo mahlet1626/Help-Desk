@@ -16,15 +16,101 @@ import IsoWidgetsWrapper from '../widgets-wrapper';
 import CardWidget from '../card/card-widgets';
 import { StackedAreaChart } from '../../Charts/recharts/charts/';
 import * as rechartConfigs from '../../Charts/recharts/config';
+import Button, { ButtonGroup } from '../../../components/uielements/button';
+import { rtl } from '../../../settings/withDirection';
+import PopoverWrapper from './popover.style';
+import Popover from '../../../components/uielements/popover';
+import { FaBeer } from "@react-icons/all-files/fa/FaBeer";
+import { IoWallet }  from "react-icons/io5";
+import Input, {
+  InputSearch,
+  InputGroup,
+  Textarea
+} from '../../../components/uielements/input';
+import Select, { SelectOption } from '../../../components/uielements/select';
+
+const Option = SelectOption;
 const Tag = props => (
   <TagWrapper>
     <Tags {...props}>{props.children}</Tags>
   </TagWrapper>
 );
+const margin = {
+  margin: rtl === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0'
+};
+
+
+const recharge = (
+  <PopoverWrapper>
+      <Box title="Recharge your Wallet">
+              <ContentHolder>
+                <InputGroup size="large" style={{ marginBottom: '15px' }}>
+                  <Col span="12">
+                    <Input placeholder="First Name" />
+                  </Col>
+                  <Col span="12">
+                    <Input placeholder="Last Name" />
+                  </Col>
+                </InputGroup>
+
+                <InputGroup size="large" style={{ marginBottom: '15px' }}>
+                  <Col span="24">
+                    <Input placeholder="Enter Account" />
+                  </Col>
+                </InputGroup>
+                
+                <InputGroup size="large" style={{ marginBottom: '15px' }}>
+                  <Col span="24">
+                    <Input placeholder="Enter Amount" />
+                  </Col>
+                </InputGroup>
+
+                <Button type="primary" style={{marginLeft: "11em"}} >
+                      Recharge
+                </Button>
+                
+              </ContentHolder>
+            </Box>
+  </PopoverWrapper>
+);
+
+
+const content = (
+  <PopoverWrapper>
+    <p>Remaing Wallet :1000 </p>
+    <p>
+      <a href="/dashboard/transcation_history"> Transcation History </a> <br />
+    </p>
+    <p>
+    
+    <p> <Popover
+          content={recharge}
+          title="Wallet"
+          trigger="click"
+        >
+         <PopoverWrapper><a href="/dashboard/recharge" > Recharge </a> <br/></PopoverWrapper>
+          
+        </Popover>
+    </p>
+    
+   
+    </p>
+    
+  </PopoverWrapper>
+);
 
 
 export default class extends Component {
+  handleClick = (e) => {
+    e.preventDefault();
+    console.log(e.target.id);
+  };
+
   render() {
+    const margin = {
+      margin: rtl === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0'
+    };
+    
     const { rowStyle, colStyle, gutter } = basicStyle;
     const stackConfig = {
       ...rechartConfigs.StackedAreaChart,
@@ -32,10 +118,19 @@ export default class extends Component {
     };
 
     return (
-      <LayoutWrapper>
+      <LayoutWrapper >
+     
+          <Popover
+          content={content}
+          title="Wallet"
+          trigger="click"
+        >
+         <IoWallet size={'3em'} style={{marginLeft: "72em"}}/>
+          
+        </Popover>
         {/* <PageHeader>{<IntlMessages id="uiElements.cards.cards" />}</PageHeader> */}
-        <Row style={rowStyle} gutter={0} justify="start">
-          <Col lg={12} md={12} sm={12} xs={24} style={{ colStyle }}>
+        <Row style={rowStyle} gutter={gutter} justify="start">
+          <Col xs={12} style={{ colStyle }}>
             <IsoWidgetsWrapper>
               {/* Card Widget */}
               <CardWidget
@@ -46,7 +141,7 @@ export default class extends Component {
               />
             </IsoWidgetsWrapper>
           </Col>
-          <Col lg={12} md={12} sm={12} xs={24} style={colStyle}>
+          <Col xs={12} style={colStyle}>
             <IsoWidgetsWrapper gutterBottom={20}>
               {/* Card Widget */}
               <CardWidget
@@ -59,9 +154,10 @@ export default class extends Component {
           </Col>
         </Row>
 
+
         <Row style={rowStyle} gutter={gutter} justify="start">
 
-          <Col lg={24} md={12} sm={12} xs={24} style={colStyle}>
+          <Col xs={24} style={colStyle}>
 
             <Box
               title={<IntlMessages id="#1" />}>
@@ -78,23 +174,23 @@ export default class extends Component {
                         <p>{<IntlMessages id="Monday, 10 Oct 2022" />}</p>
                         <Tag className="mr-5" color="#f50">Active</Tag>
                       </Col> */}
-                      <Col sm={12} xs={12} style={colStyle}>
+                      <Col xs={12} style={colStyle}>
                         <p><strong>{<IntlMessages id="Distance" />}</strong></p>
                         <p>{<IntlMessages id="6km" />}</p>
                       </Col>
-                      <Col sm={12} xs={12} style={colStyle}>
+                      <Col xs={12} style={colStyle}>
                         <p><strong>{<IntlMessages id="Trip Time" />}</strong></p>
                         <p>{<IntlMessages id="38 min" />}</p>
                       </Col>
                     </Row>
                     <Row style={{ rowStyle, margin: '10px' }} gutter={gutter} justify="start" >
-                      <Col lg={12} sm={6} xs={12} style={colStyle}>
+                      <Col xs={12} style={colStyle}>
                         <p><strong>{<IntlMessages id="Sender" />}</strong></p>
                         <p>{<IntlMessages id="Name : Abebe" />}</p>
                         <p>{<IntlMessages id="Phone : +251665841" />}</p>
                         <p>{<IntlMessages id="Address : Addis Ababa" />}</p>
                       </Col>
-                      <Col lg={12} sm={6} xs={12} style={colStyle}>
+                      <Col xs={12} style={colStyle}>
 
                         <p><strong>{<IntlMessages id="Receiver" />}</strong></p>
                         <p>{<IntlMessages id="Name : Kebede" />}</p>
@@ -105,20 +201,21 @@ export default class extends Component {
 
                     </Row>
                   </Col>
-                  <Col lg={12} sm={12} xs={24} style={colStyle}>
+                  <Col xs={12} style={colStyle}>
                     <Timeline>
                       <TimelineItem color="green">
                         <p>Starting Point</p>
-                        <p>Solve initial network problems 1</p>
+                        <p>Bole, Addis Ababa</p>
+                        <p>Monday, 10 Oct 2022 5:00 PM</p>
                       </TimelineItem>
 
                       <TimelineItem>
                         <p>Ending Point</p>
-                        <p>Technical testing 1</p>
+                        <p>Ayat, Addis Ababa</p>
+                        <p>Monday, 10 Oct 2022 5:30 PM</p>
                       </TimelineItem>
                     </Timeline>
                   </Col>
-
                 </Row>
               </ContentHolder>
 
@@ -133,10 +230,10 @@ export default class extends Component {
         </Row>
         <Row style={rowStyle} gutter={gutter} justify="start">
 
-          <Col lg={24} md={12} sm={12} xs={24} style={colStyle}>
+          <Col xs={24} style={colStyle}>
 
             <Box
-              title={<IntlMessages id="#2" />}>
+              title={<IntlMessages id="#1" />}>
               <ContentHolder>
                 <Row style={{ rowStyle, margin: '10px' }} gutter={gutter} justify="start">
                   <p>{<IntlMessages id="Monday, 10 Oct 2022" />}</p>
@@ -150,23 +247,23 @@ export default class extends Component {
                         <p>{<IntlMessages id="Monday, 10 Oct 2022" />}</p>
                         <Tag className="mr-5" color="#f50">Active</Tag>
                       </Col> */}
-                      <Col sm={12} xs={12} style={colStyle}>
+                      <Col xs={12} style={colStyle}>
                         <p><strong>{<IntlMessages id="Distance" />}</strong></p>
                         <p>{<IntlMessages id="6km" />}</p>
                       </Col>
-                      <Col sm={12} xs={12} style={colStyle}>
+                      <Col xs={12} style={colStyle}>
                         <p><strong>{<IntlMessages id="Trip Time" />}</strong></p>
                         <p>{<IntlMessages id="38 min" />}</p>
                       </Col>
                     </Row>
                     <Row style={{ rowStyle, margin: '10px' }} gutter={gutter} justify="start" >
-                      <Col lg={12} sm={6} xs={12} style={colStyle}>
+                      <Col xs={12} style={colStyle}>
                         <p><strong>{<IntlMessages id="Sender" />}</strong></p>
                         <p>{<IntlMessages id="Name : Abebe" />}</p>
                         <p>{<IntlMessages id="Phone : +251665841" />}</p>
                         <p>{<IntlMessages id="Address : Addis Ababa" />}</p>
                       </Col>
-                      <Col lg={12} sm={6} xs={12} style={colStyle}>
+                      <Col xs={12} style={colStyle}>
 
                         <p><strong>{<IntlMessages id="Receiver" />}</strong></p>
                         <p>{<IntlMessages id="Name : Kebede" />}</p>
@@ -177,20 +274,21 @@ export default class extends Component {
 
                     </Row>
                   </Col>
-                  <Col lg={12} sm={12} xs={24} style={colStyle}>
+                  <Col xs={12} style={colStyle}>
                     <Timeline>
                       <TimelineItem color="green">
                         <p>Starting Point</p>
-                        <p>Solve initial network problems 1</p>
+                        <p>Bole, Addis Ababa</p>
+                        <p>Monday, 10 Oct 2022 5:00 PM</p>
                       </TimelineItem>
 
                       <TimelineItem>
                         <p>Ending Point</p>
-                        <p>Technical testing 1</p>
+                        <p>Ayat, Addis Ababa</p>
+                        <p>Monday, 10 Oct 2022 5:30 PM</p>
                       </TimelineItem>
                     </Timeline>
                   </Col>
-
                 </Row>
               </ContentHolder>
 
