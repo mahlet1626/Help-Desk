@@ -8,17 +8,17 @@ import Firebase from '../../helpers/firebase/index';
 export default class extends Component {
   state = {
     visible: false,
-    email: '12',
-    password: '12',
+    email: 'demo@gmail.com',
+    password: 'demodemo',
     confirmLoading: false
   };
   showModal = () => {
     this.setState({
-      visible: false
+      visible: true
     });
   };
   handleCancel = e => {
-    this.setStvate({
+    this.setState({
       visible: false
     });
   };
@@ -34,27 +34,6 @@ export default class extends Component {
     const self = this;
     let isError = false;
     Firebase.login(Firebase.EMAIL, { email, password })
-    .then(result => {
-      if (isError) {
-        return;
-      }
-      if (!result || result.message) {
-        const message =
-          result && result.message
-            ? result.message
-            : 'Sorry Some error occurs';
-        notification('error', message);
-        self.setState({
-          confirmLoading: false
-        });
-      } else {
-        self.setState({
-          visible: false,
-          confirmLoading: false
-        });
-        this.props.login();
-      }
-    })
       .catch(result => {
         const message =
           result && result.message ? result.message : 'Sorry Some error occurs';
@@ -64,7 +43,27 @@ export default class extends Component {
         });
         isError = true;
       })
-      
+      .then(result => {
+        if (isError) {
+          return;
+        }
+        if (!result || result.message) {
+          const message =
+            result && result.message
+              ? result.message
+              : 'Sorry Some error occurs';
+          notification('error', message);
+          self.setState({
+            confirmLoading: false
+          });
+        } else {
+          self.setState({
+            visible: false,
+            confirmLoading: false
+          });
+          this.props.login();
+        }
+      });
   };
   resetPassword = () => {
     const { email } = this.state;
