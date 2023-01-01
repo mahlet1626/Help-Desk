@@ -21,9 +21,17 @@ import { StackedAreaChart } from '../Charts/recharts/charts/';
 import { GoogleChart } from '../Charts/googleChart/';
 import * as googleChartConfigs from '../Charts/googleChart/config';
 import IntlMessages from '../../components/utility/intlMessages';
+import Box from '../../components/utility/box';
+import * as configs from './config';
+import ContentHolder from '../../components/utility/contentHolder';
+import ChartWrapper from './chart.style';
+import Async from '../../helpers/asyncComponent';
+
+const width = '90%';
+const height = '400px';
 
 const tableDataList = clone(dataList);
-tableDataList.size = 5;
+tableDataList.size = 8;
 
 export default class extends Component {
   render() {
@@ -41,7 +49,11 @@ export default class extends Component {
         callback(Chart) {},
       },
     ];
-
+    const { gutter } = basicStyle;
+    const { toggleCollapsed, url, customizedTheme, locale } = this.props;
+    // const margin = {
+    //   margin: rtl === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0'
+    // };
     const stackConfig = {
       ...rechartConfigs.StackedAreaChart,
       width: window.innerWidth < 450 ? 300 : 500,
