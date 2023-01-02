@@ -6,12 +6,12 @@ const options = [
     leftIcon: 'ion-speedometer',
   },
   {
-    key: 'view_my_project',
+    key: 'my_projects',
     label: 'My Projects',
     leftIcon: 'ion-android-mail',
   },
   {
-    key: 'create_new_project',
+    key: 'new_project',
     label: 'New Project',
     leftIcon: 'ion-chatbubbles',
   },
@@ -24,13 +24,13 @@ const options = [
   {
     key: 'all_tickets',
     label: 'All Tickets',
-    leftIcon: 'ion-map',
+    leftIcon: 'ion-ios-paper',
    
   },
   {
     key: 'tickets_assigned_to_me',
     label: 'Tickets Assigned To Me',
-    leftIcon: 'ion-clipboard',
+    leftIcon: 'ion-android-mail',
   },
   {
     key: 'unassigned_tickets',
@@ -40,7 +40,7 @@ const options = [
   {
     key: 'fixed_tickets',
     label: 'Fixed Tickets',
-    leftIcon: 'ion-calendar',
+    leftIcon: 'ion-android-checkbox-outline',
   },
   {
     key: 'failed_tickets',

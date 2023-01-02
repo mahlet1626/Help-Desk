@@ -96,7 +96,7 @@ export default class extends Component {
                 <StickerWidget
                   number={<IntlMessages id="widget.stickerwidget1.number" />}
                   text={"Fixed Tickets"}
-                  icon="ion-chatbubbles"
+                  icon="ion-android-checkbox-outline"
                   fontColor="#ffffff"
                   bgColor="#002F63"
                 />

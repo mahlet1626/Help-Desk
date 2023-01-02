@@ -13,36 +13,36 @@ const routes = [
     component: asyncComponent(() => import('../Dashboard')),
   },
   {
-    path: 'view_my_project',
+    path: 'my_projects',
     component: asyncComponent(() => import('../Projects/my_projects.js')),
   },
   {
-    path: 'create_new_project',
+    path: 'new_project',
     component: asyncComponent(() => import('../Projects/new_project.js')),
   },
   {
     path: 'my_tickets',
-    component: asyncComponent(() => import('../Tickets/my_tickets.js')),
+    component: asyncComponent(() => import('../Tickets/MyTickets')),
   },
   {
     path: 'all_tickets',
-    component: asyncComponent(() => import('../Tickets/all_tickets.js')),
+    component: asyncComponent(() => import('../Tickets/AllTickets')),
   },
   {
     path: 'tickets_assigned_to_me',
-    component: asyncComponent(() => import('../Tickets/tickets_assigned_to_me.js')),
+    component: asyncComponent(() => import('../Tickets/AssignedTickets')),
   },
   {
     path: 'unassigned_tickets',
-    component: asyncComponent(() => import('../Tickets/unassigned_tickets.js')),
+    component: asyncComponent(() => import('../Tickets/UnassignedTickets')),
   },
   {
     path: 'fixed_tickets',
-    component: asyncComponent(() => import('../Tickets/fixed_tickets.js')),
+    component: asyncComponent(() => import('../Tickets/FixedTickets')),
   },
   {
     path: 'failed_tickets',
-    component: asyncComponent(() => import('../Tickets/failed_tickets.js')),
+    component: asyncComponent(() => import('../Tickets/FailedTickets')),
   },
 
   ...customRoutes,
