@@ -44,7 +44,10 @@ const routes = [
     path: 'failed_tickets',
     component: asyncComponent(() => import('../Tickets/FailedTickets')),
   },
-
+  {
+    path: 'users',
+    component: asyncComponent(() => import('../Users')),
+  },
   ...customRoutes,
 ];
 

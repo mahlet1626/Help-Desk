@@ -48,6 +48,12 @@ const options = [
     leftIcon: 'ion-ios-paper',
   },
   
+  {
+    key: 'users',
+    label: 'Users',
+    leftIcon: 'ion-android-person',
+  },
+
   ...getDevSidebar,
 ];
 export default options;
