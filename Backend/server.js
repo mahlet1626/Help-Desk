@@ -1,21 +1,28 @@
 const express = require('express');
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 const app= express();
 const morgan = require('morgan');//to log request whenever we make a request
 const path = require('path');
 const bodyparser = require('body-parser');
+const mongoose = require('mongoose')
 
-dotenv.config( { path : 'config.env'} )
+require("dotenv").config();
+// dotenv.config( { path : 'config.env'} )
 const PORT= process.env.PORT || 9000;
 
 
-const connectDB = require('./server/database/connection');
+// const connectDB = require('./server/database/connection');
 
 // log requests
 app.use(morgan('tiny'));
 
 // mongodb connection
-connectDB();
+// connectDB();
+mongoose.connect(process.env.DATABASE,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(()=>console.log("DB connected!"))
+;
 
 // parse request to body-parser
 app.use(bodyparser.urlencoded({ extended : true}))
@@ -31,7 +38,7 @@ app.use('/img', express.static(path.resolve(__dirname, "assets/img")))
 app.use('/js', express.static(path.resolve(__dirname, "assets/js")))
 
 // load routers
-app.use('/', require('./server/routes/router'))
+app.use('/', require('./server/routes/user'))
 
 app.get('/',(req,res)=>{
     res.render('index');

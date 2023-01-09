@@ -1,36 +1,54 @@
-var Userdb = require('../models/users');
+const multer= require('multer');// for uploading files/image
+const User = require('../models/users');
+const route = require('../routes/user')
+const path = require('path');
+
+//image upload
+var storage= multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,  "./uploads");
+    },
+    filename:function(req,file,cb){
+        cb(null, new Date().toISOString() + file.originalname); 
+    },
+});
+
+var upload= multer({
+    storage:storage,
+}).single("image");
+
 
 // create and save new user
 exports.create = (req,res)=>{
     // validate request
-    if(!req.body){
-        res.status(400).send({ message : "Content can not be emtpy!"});
-        return;
-    }
-
-    // new user
-    const user = new Userdb({
-        photo:req.body.photo,
-        name : req.body.name,
-        email : req.body.email,
-        role: req.body.role,
-        
+    let user= new User({
+        name:req.body.name,
+        email:req.body.email,
+        image:req.file.filename,
+        role:req.body.role,
+    })
+    user.save((err)=>{
+        if(err){
+            res.json({   message:"An error occured!"})
+        }
+        else{
+           
+            res.json({
+                user
+            });
+            res.json({message:"User added Successfully!"});
+        }
     })
 
-    // save user in the database
-    user
-        .save(user)
-        .then(data => {
-            res.send(data)
-            // res.redirect('/add-user');
-        })
-        .catch(err =>{
-            res.status(500).send({
-                message : err.message || "Some error occurred while creating a create operation"
-            });
-        });
 
+
+
+    
 }
+
+
+
+
 
 // retrieve and return all users/ retrive and return a single user
 exports.find = (req, res)=>{

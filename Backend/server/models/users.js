@@ -1,11 +1,8 @@
 const mongoose = require('mongoose');
 
-var schema = new mongoose.Schema({
+var userSchema = new mongoose.Schema({
 
-    photo: {
-        data: Buffer,
-        contentType: String
-    },
+    
     name : {
         type : String,
         required: true
@@ -15,14 +12,19 @@ var schema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    role : String,
-    
-})
+    image: {
+        type : String,
+        // required: true
+    },
+    role : {
+        type:String,
+        required:true
+    },
+},
+{ timestamps: true }
+);
 
-const Userdb = mongoose.model('userdb', schema);
-
-module.exports = Userdb;
-
+module.exports = mongoose.model('User', userSchema);
 
 
 
