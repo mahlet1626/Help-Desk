@@ -41,7 +41,7 @@ route.get('/update-user', services.update_user)
 // API
 route.post('/api/users',upload, UserController.create);
 route.get('/api/users', UserController.find);
-route.put('/api/users/:id', UserController.update);
+route.put('/api/users/:id',upload, UserController.update);
 route.delete('/api/users/:id', UserController.delete);
 
 
