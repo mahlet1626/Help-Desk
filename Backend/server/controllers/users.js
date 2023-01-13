@@ -45,10 +45,10 @@ exports.create = (req,res)=>{
 
 // retrieve and return all users/ retrive and return a single user
 exports.find = (req, res)=>{
-    
-    if(req.params.id){
-        const id = req.params.id;
-q
+
+    if(req.query.id){
+        const id = req.query.id;
+
         User.findById(id)
             .then(data =>{
                 if(!data){
@@ -58,7 +58,7 @@ q
                 }
             })
             .catch(err =>{
-                res.status(500).send({ message: "Erro retrieving user with id " + id})
+                res.status(500).send({ message: "Error retrieving user with id " + id})
             })
 
     }else{
@@ -89,9 +89,6 @@ var upload= multer({
     storage:storage,
 }).single("image");
 
-
-
-
 // Update a new idetified user by user id
 exports.update = (req, res)=>{
     if(!req.body){
@@ -101,27 +98,28 @@ exports.update = (req, res)=>{
         //     .send({ message : "Data to update can not be empty"})
     }
     let id= req.params.id;
-    let image=""
+    let new_image=""
     // let new_image=""
     if(req.file){
-        image=req.file.filename;
+        new_image=req.file.filename;
         try{
-            fs.unlinkSync("./server/uploads" + req.body.image)
+            fs.unlinkSync("./uploads" + req.body.image)
         }catch(err){
             console.log(err);
         }
     }else{
-        image=req.body.image;
+        new_image=req.body.image;
     }
     //const id = req.params.id;
     User.findByIdAndUpdate(id,{
         name:req.body.name,
         email:req.body.email,
-        image:req.file.filename,
+        image:new_image,
         role:req.body.role,
+        
     },(err,result)=>{
         if(err){
-            res.json({message:"Can't find user by that id/ can't update!"})
+            res.json({message:"Can't find user by that id or can't update!"})
         }
         else{
             res.json({
