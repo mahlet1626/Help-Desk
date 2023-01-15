@@ -3,46 +3,69 @@ const User = require('../models/users');
 const route = require('../routes/user')
 const path = require('path');
 const fs= require('fs');//for removing old files/images from the directory if we choose a new one
-
-//image upload
-var storage= multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,  "./uploads");
-    },
-    filename:function(req,file,cb){
-        cb(null, new Date().toISOString() + file.originalname); 
-    },
-});
-
-var upload= multer({
-    storage:storage,
-}).single("image");
+const formidable = require('formidable');
+const _ = require('lodash');// for replacing?
 
 
-// create and save new user
-exports.create = (req,res)=>{
-    // validate request
-    let user= new User({
-        name:req.body.name,
-        email:req.body.email,
-        image:req.file.filename,
-        role:req.body.role,
-    })
-    user.save((err)=>{
-        if(err){
-            res.json({   message:"An error occured!"})
-        }
-        else{
-           
-            res.json({
-                user
-            });
-            res.json({message:"User added Successfully!"});
-        }
-    })
+exports.userById=(req,res,next,id)=>{
+    User.findById(id).exec((err,user)=>{
+     if(err|| !user){
+        return res.status(400).json({
+            error:"User not found"
+        });
+     }
+     req.user = user;
+        next();
+       
+
+    });
     
 }
 
+
+// create and save new user
+exports.create = (req, res) => {
+
+    let form =new formidable.IncomingForm()
+    form.keepExtensions= true // anytype of image
+    form.parse(req,(err,fields,files)=>{
+       if (err){
+        return res.status(400).json({
+            error: "Image can't be uploaded!"
+       });
+  };
+const{name,email,role}= fields
+if(!name || !email || !role ){
+  return res.status(400).json({
+    error: "all fields are required!"
+});
+}
+
+  let user = new User(fields);// for the fields
+  if(files.image){
+    console.log(files.image)
+    if (files.image.size > 1000000){
+      return res.status(400).json({
+            error: "Image can't be uploaded!"
+       });
+        
+    }
+
+    user.image.data = fs.readFileSync(files.image.filepath);// files.image.path//earlier version
+    user.image.contentType = files.image.type;
+  }
+ user.save((err,result)=>{
+    if (err){
+        return res.status(400).json({
+          message:"Error Occured!"
+       });
+ }
+  res.json(result);
+});
+});
+};
+
+// retrieve and return all users/ retrive and return a single user
 // retrieve and return all users/ retrive and return a single user
 exports.find = (req, res)=>{
 
@@ -74,64 +97,53 @@ exports.find = (req, res)=>{
     
 }
 
-
-//image update
-var storage= multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,  "./uploads");
-    },
-    filename:function(req,file,cb){
-        cb(null, new Date().toISOString() + file.originalname); 
-    },
-});
-
-var upload= multer({
-    storage:storage,
-}).single("image");
+exports.image = (req, res, next) => {
+    if (req.user.image.data) {
+        res.set('Content-Type', req.user.image.contentType);
+        return res.send(req.user.image.data);
+    }
+    next();
+};
 
 // Update a new idetified user by user id
-exports.update = (req, res)=>{
-    if(!req.body){
-        res.json({message:"Data to update can not be empty"})
-        // return res
-        //     .status(400)
-        //     .send({ message : "Data to update can not be empty"})
-    }
-    let id= req.params.id;
-    let new_image=""
-    // let new_image=""
-    if(req.file){
-        new_image=req.file.filename;
-        try{
-            fs.unlinkSync("./uploads" + req.body.image)
-        }catch(err){
-            console.log(err);
-        }
-    }else{
-        new_image=req.body.image;
-    }
-    //const id = req.params.id;
-    User.findByIdAndUpdate(id,{
-        name:req.body.name,
-        email:req.body.email,
-        image:new_image,
-        role:req.body.role,
+exports.update = (req, res) => {
+
+    let form =new formidable.IncomingForm()
+    form.keepExtensions= true // anytype of image
+    form.parse(req,(err,fields,files)=>{
+       if (err){
+        return res.status(400).json({
+            error: "Image can't be uploaded!"
+       });
+  };
+ 
+
+  let user = req.user;
+  user = _.extend(user, fields);
+
+  if(files.image){
+    console.log(files.image)
+    if (files.image.size > 1000000){
+      return res.status(400).json({
+            error: "Image can't be uploaded!"
+       });
         
-    },(err,result)=>{
-        if(err){
-            res.json({message:"Can't find user by that id or can't update!"})
-        }
-        else{
-            res.json({
-                message:"User added Successfully!",
-                User
-            });
-          
-        }
     }
-    )
-       
-}
+
+    user.image.data = fs.readFileSync(files.image.filepath);// files.image.path//earlier version
+    user.image.contentType = files.image.type;
+  }
+ user.save((err,result)=>{
+    if (err){
+        return res.status(400).json({
+          message:"Error Occured!"
+       });
+ }
+  res.json(result);
+});
+});
+};
+  
 
 // Delete a user with specified user id in the request
 exports.delete = (req, res)=>{
@@ -153,3 +165,4 @@ exports.delete = (req, res)=>{
             });
         });
 }
+

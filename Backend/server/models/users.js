@@ -5,7 +5,9 @@ var userSchema = new mongoose.Schema({
     
     name : {
         type : String,
-        required: true
+        required: [true,'Please enter name'],
+        trim:true,
+        maxLength:[100, 'Name should not exceed 100 characters']
     },
     email : {
         type: String,
@@ -13,8 +15,9 @@ var userSchema = new mongoose.Schema({
         unique: true
     },
     image: {
-        type : String,
-        // required: true
+       data: Buffer,
+       contentType: String,
+       required: false
     },
     role : {
         type:String,

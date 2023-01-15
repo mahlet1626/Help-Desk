@@ -9,19 +9,19 @@ const multer= require('multer');// for uploading files/image
  *  @method GET /
  */
 
-//image upload
-var storage= multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,  "./server/uploads");
-    },
-    filename:function(req,file,cb){
-        cb(null, file.fieldname + "_" +Date.now() + "_" +file.originalname);
-    },
-});
+// //image upload
+// var storage= multer.diskStorage({
+//     destination:function(req,file,cb){
+//         cb(null,  "./server/uploads");
+//     },
+//     filename:function(req,file,cb){
+//         cb(null, file.fieldname + "_" +Date.now() + "_" +file.originalname);
+//     },
+// });
 
-var upload= multer({
-    storage:storage,
-}).single("image");
+// var upload= multer({
+//     storage:storage,
+// }).single("image");
 
 route.get('/', services.homeRoutes);
 
@@ -37,12 +37,12 @@ route.get('/add-user', services.add_user)
  */
 route.get('/update-user', services.update_user)
 
-
 // API
-route.post('/api/users',upload, UserController.create);
+route.post('/api/users', UserController.create);
 route.get('/api/users', UserController.find);
-route.put('/api/users/:id',upload, UserController.update);
+route.put('/api/users/:id', UserController.update);
 route.delete('/api/users/:id', UserController.delete);
 
+route.param('id',UserController.userById)
 
 module.exports = route
