@@ -5,8 +5,9 @@ const path = require('path');
 const fs= require('fs');//for removing old files/images from the directory if we choose a new one
 const formidable = require('formidable');
 const _ = require('lodash');// for replacing?
+const { getAuth } = require ('firebase-admin/auth');
 
-
+//userby id middleware
 exports.userById=(req,res,next,id)=>{
     User.findById(id).exec((err,user)=>{
      if(err|| !user){
@@ -25,7 +26,7 @@ exports.userById=(req,res,next,id)=>{
 
 // create and save new user
 exports.create = (req, res) => {
-
+  
     let form =new formidable.IncomingForm()
     form.keepExtensions= true // anytype of image
     form.parse(req,(err,fields,files)=>{
@@ -34,8 +35,8 @@ exports.create = (req, res) => {
             error: "Image can't be uploaded!"
        });
   };
-const{name,email,role}= fields
-if(!name || !email || !role ){
+const{name,email,role,password}= fields
+if(!name || !email || !role || !password){
   return res.status(400).json({
     error: "all fields are required!"
 });
@@ -54,6 +55,21 @@ if(!name || !email || !role ){
     user.image.data = fs.readFileSync(files.image.filepath);// files.image.path//earlier version
     user.image.contentType = files.image.type;
   }
+  getAuth()
+  .createUser({
+    email: email,
+    emailVerified: false,
+    password: password,
+   
+    disabled: false,
+  })
+  .then((userRecord) => {
+    // See the UserRecord reference doc for the contents of userRecord.
+    console.log('Successfully created new user:', userRecord.uid);
+  })
+  .catch((error) => {
+    console.log('Error creating new user:', error);
+  });
  user.save((err,result)=>{
     if (err){
         return res.status(400).json({
