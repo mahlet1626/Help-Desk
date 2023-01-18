@@ -82,7 +82,7 @@ if(!name || !email || !role || !password){
 };
 
 // retrieve and return all users/ retrive and return a single user
-// retrieve and return all users/ retrive and return a single user
+
 exports.find = (req, res)=>{
 
     if(req.query.id){
