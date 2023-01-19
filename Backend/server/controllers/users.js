@@ -26,58 +26,61 @@ exports.userById=(req,res,next,id)=>{
 
 // create and save new user
 exports.create = (req, res) => {
-  
+   
     let form =new formidable.IncomingForm()
     form.keepExtensions= true // anytype of image
-    form.parse(req,(err,fields,files)=>{
+    form.parse(req, (err,fields,files)=>{
        if (err){
         return res.status(400).json({
             error: "Image can't be uploaded!"
        });
-  };
-const{name,email,role,password}= fields
-if(!name || !email || !role || !password){
-  return res.status(400).json({
-    error: "all fields are required!"
-});
-}
+        };
+    const{name,email,role,password}= fields
 
-  let user = new User(fields);// for the fields
-  if(files.image){
-    console.log(files.image)
-    if (files.image.size > 1000000){
-      return res.status(400).json({
-            error: "Image can't be uploaded!"
-       });
-        
-    }
+    if(!name || !email || !role || !password){
+    return res.status(400).json({
+        error: "all fields are required!"
+    });
+        }
+    //firebase
+    getAuth().createUser({
+        email: email,
+        emailVerified: false,
+        password: password,   
+        disabled: false,
+    }) .then((userRecord) => {
+        // See the UserRecord reference doc for the contents of userRecord.
 
-    user.image.data = fs.readFileSync(files.image.filepath);// files.image.path//earlier version
-    user.image.contentType = files.image.type;
-  }
-  getAuth()
-  .createUser({
-    email: email,
-    emailVerified: false,
-    password: password,
-   
-    disabled: false,
-  })
-  .then((userRecord) => {
-    // See the UserRecord reference doc for the contents of userRecord.
-    console.log('Successfully created new user:', userRecord.uid);
-  })
-  .catch((error) => {
-    console.log('Error creating new user:', error);
-  });
- user.save((err,result)=>{
-    if (err){
-        return res.status(400).json({
-          message:"Error Occured!"
-       });
- }
-  res.json(result);
-});
+        let user = new User({
+            name : name,
+            email : email,
+            role: role,
+            uid: userRecord.uid
+        });// for the fields
+        if(files.image){
+            console.log(files.image)
+            if (files.image.size > 1000000){
+            return res.status(400).json({
+                    error: "Image can't be uploaded!"
+            });      
+            }
+            user.image.data = fs.readFileSync(files.image.filepath);// files.image.path//earlier version
+            user.image.contentType = files.image.type;
+        }
+    
+        user.save((err,result)=>{
+            if (err){
+                return res.status(400).json({
+                err
+            });
+        }
+            res.json(result);
+            });
+        // console.log('Successfully created new user:', uiid);
+    })
+    .catch((error) => {
+        console.log('Error creating new user:', error);
+    });
 });
 };
 
