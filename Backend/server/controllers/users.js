@@ -50,7 +50,7 @@ exports.create = (req, res) => {
         disabled: false,
     }) .then((userRecord) => {
         // See the UserRecord reference doc for the contents of userRecord.
-
+        
         let user = new User({
             name : name,
             email : email,
