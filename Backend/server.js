@@ -11,6 +11,13 @@ require("dotenv").config();
 const PORT= process.env.PORT || 9000;
 
 
+//cors
+var cors = require('cors')
+
+app.use(cors()) // Use this after the variable declaration
+
+
+
 // const connectDB = require('./server/database/connection');
 
 // log requests

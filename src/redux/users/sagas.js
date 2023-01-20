@@ -75,7 +75,7 @@ function* storeIntoFirestore({ payload }) {
 
       form_data.append("name", data.name);
       form_data.append("email", data.email);
-      form_data.append("driver_profile_image", file);
+      form_data.append("image", file);
       form_data.append("role", data.role);
      
 

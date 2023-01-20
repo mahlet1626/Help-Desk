@@ -5,10 +5,10 @@ import { onAuthStateChanged } from "firebase/auth";
 import { eventChannel } from 'redux-saga';
 
 export function requestGetUser() {
-    return axios.get("http://localhost:3000/api/users/");
+    return axios.get("http://localhost:3000/api/users");
 }
 export function requestPostUser(form_data) {
-    return axios.post("http://localhost:3000/api/users/", form_data, {
+    return axios.post("http://localhost:3000/api/users", form_data, {
         headers: {
             "content-type": "multipart/form-data",
         },
