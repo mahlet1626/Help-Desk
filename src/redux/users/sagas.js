@@ -2,8 +2,7 @@ import { all, takeEvery, put, call } from 'redux-saga/effects';
 import actions from './actions';
 import FirebaseHelper from '../../helpers/firebase';
 import omit from 'lodash/omit';
-import fakeData from './fakeData';
-import { requestGetUser, requestPostUser, requestUpdateUser, requestDeleteUser } from '../../helpers/users/getUsers';
+import { requestGetUser, requestPostUser, requestUpdateUser, requestDeleteUser, urlToObject } from '../../helpers/users/getUsers';
 
 const {
   database,
@@ -13,7 +12,6 @@ const {
   processFireStoreCollection,
 } = FirebaseHelper;
 
-const fakeDataList = new fakeData(5).getAll();
 
 /**
  * DOC: https://redux-saga-firebase.js.org/reference/dev/firestore
@@ -51,6 +49,7 @@ function* storeIntoFirestore({ payload }) {
   const { data, actionName } = payload;
   if (actionName == 'insert') {
     try {
+      const file = yield call(urlToObject, data.image);
       // const date = new Date();
       let form_data = new FormData();
 
@@ -70,6 +69,7 @@ function* storeIntoFirestore({ payload }) {
   }
   else if (actionName == 'update') {
     try {
+      const file = yield call(urlToObject, data.image);
       // const date = new Date();
       let form_data = new FormData();
 
@@ -128,10 +128,10 @@ function* resetFireStoreDocuments() {
     });
 
     batch = createBatch();
-    fakeDataList.forEach(user => {
-      const doc = database.collection(COLLECTION_NAME).doc(createNewRef());
-      batch.set(doc, user);
-    });
+    // fakeDataList.forEach(user => {
+    //   const doc = database.collection(COLLECTION_NAME).doc(createNewRef());
+    //   batch.set(doc, user);
+    // });
     batch.commit();
 
     yield put({ type: actions.LOAD_FROM_FIRESTORE });

@@ -12,7 +12,7 @@ import youtubeSearchSagas from './youtubeSearch/sagas';
 import devSagas from '../customApp/redux/sagas';
 import articles from './articles/sagas';
 import investors from './investors/sagas';
-
+import users from './users/sagas';
 export default function* rootSaga(getState) {
   yield all([
     authSagas(),
@@ -28,5 +28,6 @@ export default function* rootSaga(getState) {
     devSagas(),
     articles(),
     investors(),
+    users(),
   ]);
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import actions from '../../redux/articles/actions';
+import actions from '../../redux/users/actions';
 import Input, { Textarea } from '../../components/uielements/input';
 import Select, {
   SelectOption as Option,
@@ -10,6 +10,8 @@ import LayoutContentWrapper from '../../components/utility/layoutWrapper.js';
 import Box from '../../components/utility/box';
 import ContentHolder from '../../components/utility/contentHolder';
 import Popconfirms from '../../components/feedback/popconfirm';
+import { Col } from 'antd';
+import { Link } from 'react-router-dom';
 import {
   ActionBtn,
   Fieldset,
@@ -20,107 +22,242 @@ import {
   ActionWrapper,
   ComponentTitle,
   TableWrapper,
-  StatusTag,
+  // StatusTag,
 } from './articles.style';
 import clone from 'clone';
+import { Row } from 'antd';
+import { notification } from "antd";
+import { Icon } from 'antd';
+import { FilterDropdown } from '../../components/tables/helperCells';
 
-class Articles extends Component {
-  componentDidMount() {
-    this.props.loadFromFireStore();
+// const openNotificationWithIcon = (type) => {
+//   notification[type]({
+//     message: "",
+//     description:
+//       "...Loading",
+//   });
+// };
+const openErrorNotificationWithIcon = (type) => {
+  notification[type]({
+    message: "Error",
+    description: "An error occurred, please try again",
+  });
+};
+
+class User extends Component {
+  constructor(props) {
+    super(props);
+    this.onSearch = this.onSearch.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.state = {
+      dataList: [],
+      filterDropdownVisible: false,
+      searchText: '',
+      filtered: false
+    };
   }
-  handleRecord = (actionName, article) => {
-    if (article.key && actionName !== 'delete') actionName = 'update';
-    this.props.saveIntoFireStore(article, actionName);
-  };
-  resetRecords = () => {
-    this.props.resetFireStoreDocuments();
-  };
+  state = {
+    image: "",
+    dataList: this.props.users,
+    filterDropdownVisible: false,
+    searchText: '',
+    filtered: false
+  }
+  onSearch() {
+    let { searchText } = this.state;
+    searchText = searchText.toUpperCase();
+    const dataList = this.props.users
+      .filter(data => data['name'].toUpperCase().includes(searchText));
+    console.log(dataList)
+    this.setState({
+      dataList: dataList,
+      filterDropdownVisible: false,
+      searchText: '',
+      filtered: false
+    });
 
-  handleModal = (article = null) => {
-    this.props.toggleModal(article);
+    // else {
+    //   this.setState({
+    //     dataList,
+    //     filterDropdownVisible: false,
+    //     searchText: '',
+    //     filtered: false
+    //   });
+    // }
+
+  }
+  onInputChange(event) {
+    this.setState({ searchText: event.target.value });
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    if (nextProps.errorMessage == "There is a loading problem") {
+      openErrorNotificationWithIcon("error")
+    }
+    // else if (nextProps.isLoading) {
+    //   openNotificationWithIcon("info")
+    // }
+  }
+
+  async componentDidMount() {
+    console.log(this.props)
+    await this.props.loadFromFireStore();
+  }
+
+  handleRecord = async (actionName, user) => {
+    if (user.key && actionName !== 'delete') actionName = 'update';
+    await this.props.saveIntoFireStore(user, actionName);
+  };
+  // resetRecords = () => {
+  //   // this.props.resetFireStoreDocuments();
+  // };
+
+  handleModal = (user = null) => {
+    console.log(user)
+    this.props.toggleModal(user);
   };
 
   onRecordChange = (key, event) => {
-    let { article } = clone(this.props);
-    if (key) article[key] = event.target.value;
-    this.props.update(article);
+    let { user} = clone(this.props);
+
+    if (key) user[key] = event.target.value;
+    this.props.update(user);
+  };
+
+  onImageChange(key, event) {
+    let { user, update } = clone(this.props);
+    var reader = new FileReader();
+    let file = event.target.files[0];
+    user['Image_name'] = file.name;
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+
+      if (key) user[key] = reader.result;
+
+      update(user);
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
   };
 
   onSelectChange = (key, value) => {
-    let { article } = clone(this.props);
-    if (key) article[key] = value;
-    this.props.update(article);
+    let { user } = clone(this.props);
+    if (key) user[key] = value;
+    this.props.update(user);
   };
-
-  render() {
-    const { modalActive, articles } = this.props;
-    const { article } = clone(this.props);
-    const dataSource = [];
-    Object.keys(articles).map((article, index) => {
-      return dataSource.push({
-        ...articles[article],
-        key: article,
-      });
+  handleImageChange = (e) => {
+    this.setState({
+      image: e.target.files[0],
     });
+  };
+  render() {
+    let { searchText } = this.state;
+    const filterDropdown = (
+      <FilterDropdown
+        searchText={searchText}
+        onInputChange={this.onInputChange}
+        onSearch={this.onSearch}
+      />
+    );
+    const { modalActive, users
+    } = this.props;
+    console.log(this.props)
+    const { user } = clone(this.props);
+    const dataSource = [];
+    if (this.state.dataList.length != 0) {
+      Object.keys(this.state.dataList).map((user, index) => {
+        return dataSource.push({
+          ...this.state.dataList[user],
+          key: user,
+        });
+      });
+    }
+    else {
+      Object.keys(users).map((user, index) => {
+        return dataSource.push({
+          ...users[user],
+          key: user,
+        });
+      });
+    }
 
-    const rowSelection = {
-      onChange: (selectedRowKeys, selectedRows) => {},
-    };
+
 
     const columns = [
-
       {
         title: 'Image',
         dataIndex: 'Profile_image',
         key: 'Profile_image',
         width: '111px',
         render: (text, row) => {
-          // dispatchers.map(item => {
-          // return (
-          //   // <img src={`${row.Profile_image}`} style={{ width: 40, height: 40, overflow: 'hidden', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }} />
-          // );
-          // })
+         
+          return (
+            <img src={`${row.image}`} style={{ width: 40, height: 40, overflow: 'hidden', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }} />
+          );
+          
 
         },
+        // sorter: (a, b) => {
+        //   if (a.email < b.email) return -1;
+        //   if (a.email > b.email) return 1;
+        //   return 0;
+        // },
       },
-
       {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
         width: '200px',
-        sorter: (a, b) => {
-          if (a.name < b.name) return -1;
-          if (a.name > b.name) return 1;
-          return 0;
-        },
-      
+        filterDropdown,
+        filterIcon: (
+          <Icon
+            type="search"
+            style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }}
+          />
+        ),
+        filterDropdownVisible: this.state.filterDropdownVisible,
+        onFilterDropdownVisibleChange: visible =>
+          this.setState({ filterDropdownVisible: visible }, () =>
+            document.getElementById('tableFilterInput').focus()
+          ),
+        // sorter: (a, b) => {
+        //   if (a.name < b.name) return -1;
+        //   if (a.name > b.name) return 1;
+        //   return 0;
+        // },
+       
+
       },
+
       {
         title: 'Email',
         dataIndex: 'email',
-        key: 'eamil',
-        width: '200px',
+        key: 'email',
+        width: '250px',
         sorter: (a, b) => {
           if (a.email < b.email) return -1;
           if (a.email > b.email) return 1;
           return 0;
         },
-      
+
       },
       {
         title: 'Role',
         dataIndex: 'role',
         key: 'role',
-        width: '200px',
+        width: '220px',
         sorter: (a, b) => {
           if (a.role < b.role) return -1;
           if (a.role > b.role) return 1;
           return 0;
         },
-      
+
       },
+
     
+
+
       {
         title: 'Actions',
         key: 'action',
@@ -132,9 +269,8 @@ class Articles extends Component {
               <a onClick={this.handleModal.bind(this, row)} href="# ">
                 <i className="ion-android-create" />
               </a>
-
               <Popconfirms
-                title="Are you sure to delete this article？"
+                title="Are you sure to delete this user?"
                 okText="Yes"
                 cancelText="No"
                 placement="topRight"
@@ -155,56 +291,74 @@ class Articles extends Component {
         <Box>
           <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
             <TitleWrapper>
-              <ComponentTitle>Articles</ComponentTitle>
-
+              <ComponentTitle>Users</ComponentTitle>
               <ButtonHolders>
-          
                 <ActionBtn
                   type="primary"
                   onClick={this.handleModal.bind(this, null)}
                 >
-                  Add new record
+                  Add User
                 </ActionBtn>
               </ButtonHolders>
             </TitleWrapper>
-
             <Modal
               visible={modalActive}
               onClose={this.props.toggleModal.bind(this, null)}
-              title={article.key ? 'Update Article' : 'Add New Article'}
-              okText={article.key ? 'Update Article' : 'Add Article'}
-              onOk={this.handleRecord.bind(this, 'insert', article)}
+              title={user.key ? 'Update User' : 'Add New User'}
+              okText={user.key ? 'Update User' : 'Add User'}
+              onOk={this.handleRecord.bind(this, 'insert', user)}
               onCancel={this.props.toggleModal.bind(this, null)}
             >
-              <Form>
-                <Fieldset>
-                  <Label>Image</Label>
-                  <Input
-                    type="file"
-                    label="image"
-                    placeholder="Choose Image"
-                    value={article.image}
-                    onChange={this.onRecordChange.bind(this, 'image')}
-                  />
-                </Fieldset>
+              <Form id="user">
+                {
+                  this.props.user.image ? (
+                    <Fieldset>
+                      <Row>
+                        <Col sm={3} xs={12}>
+                          <img src={`${this.props.user.image}`} style={{ width: 40, height: 40, overflow: 'hidden', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }} />
+                        </Col>
+                        <Col sm={9} xs={12}>
+                          <Label>Profile Image</Label>
+
+                          <Input type="file"
+                            label="profile_image"
+                            id="avatar" name="avatar"
+                            accept="image/png, image/jpeg"
+                            onChange={this.onImageChange.bind(this, 'Profile_image')}
+                            style={{ width: "100%" }}
+                          />
+                        </Col>
+                      </Row>
+
+                    </Fieldset>) : (<Fieldset>
+                      <Label>Profile Image</Label>
+
+                      <Input type="file"
+                        label="profile_image"
+                        id="avatar" name="avatar"
+                        accept="image/png, image/jpeg"
+                        onChange={this.onImageChange.bind(this, 'Profile_image')}
+                      />
+                    </Fieldset>)
+                }
+
 
                 <Fieldset>
                   <Label>Name</Label>
                   <Input
-                    label="Name"
+                    label="name"
                     placeholder="Enter Name"
-                    value={article.name}
+                    value={user.name}
                     onChange={this.onRecordChange.bind(this, 'name')}
                   />
-                </Fieldset>  
+                </Fieldset>
 
                 <Fieldset>
                   <Label>Email</Label>
-
                   <Input
                     label="email"
                     placeholder="Enter Email"
-                    value={article.email}
+                    value={user.email}
                     onChange={this.onRecordChange.bind(this, 'email')}
                   />
                 </Fieldset>
@@ -212,46 +366,61 @@ class Articles extends Component {
                 <Fieldset>
                   <Label>Role</Label>
                   <Select
-                    defaultValue={article.role}
-                    placeholder="Choose a Role"
+                    defaultValue={user.role}
+                    placeholder="Choose a role"
                     onChange={this.onSelectChange.bind(this, 'role')}
                   >
-                    <Option value="low">Admin</Option>
-                    <Option value="medium">User</Option>
-                    
+                      <Option value="Admin">Admin</Option>
+                      <Option value="User">User</Option>
+                     
+                     
                   </Select>
                 </Fieldset>
+
+                <Fieldset>
+                  <Label>Password</Label>
+                  <Input
+                    label="password"
+                    placeholder="Enter Password"
+                    value={user.password}
+                    onChange={this.onRecordChange.bind(this, 'password')}
+                  />
+                </Fieldset>
+
+
+
               </Form>
             </Modal>
             <TableWrapper
               rowKey="key"
-              rowSelection={rowSelection}
+              // rowSelection={rowSelection}
               columns={columns}
               bordered={true}
               dataSource={dataSource}
               loading={this.props.isLoading}
-              className="isoSimpleTable"
+              className="isoSearchableTable"
               pagination={{
                 // defaultPageSize: 1,
                 hideOnSinglePage: true,
                 total: dataSource.length,
                 showTotal: (total, range) => {
-                  return `Showing ${range[0]}-${range[1]} of ${
-                    dataSource.length
-                  } Results`;
+                  return `Showing ${range[0]}-${range[1]} of ${dataSource.length
+                    } Results`;
                 },
               }}
             />
           </ContentHolder>
         </Box>
-      </LayoutContentWrapper>
+      </LayoutContentWrapper >
     );
   }
 }
 
+
 export default connect(
+
   state => ({
-    ...state.Articles,
+    ...state.Users,
   }),
   actions
-)(Articles);
+)(User);
