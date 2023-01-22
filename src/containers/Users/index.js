@@ -386,9 +386,7 @@ class User extends Component {
                     onChange={this.onRecordChange.bind(this, 'password')}
                   />
                 </Fieldset>
-
-
-
+                
               </Form>
             </Modal>
             <TableWrapper
