@@ -54,12 +54,12 @@ function* storeIntoFirestore({ payload }) {
       const file = yield call(urlToObject, data.image);
       // const date = new Date();
       let form_data = new FormData();
-
+      console.log(data)
       form_data.append("name", data.name);
       form_data.append("email", data.email);
       form_data.append("image", file);
       form_data.append("role", data.role);
-
+      form_data.append("password", data.password);
       const response = yield call(requestPostUser, form_data);
       console.log(response)
       yield put({ type: actions.LOAD_FROM_FIRESTORE });

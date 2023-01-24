@@ -4,7 +4,7 @@ export default {
 const siteConfig = {
   siteName: 'Help Desk',
   siteIcon: 'ion-flash',
-  footerText: 'Isomorphic ©2017 Created by RedQ, Inc'
+  footerText: 'Helpdesk ©2023'
 };
 
 const themeConfig = {
