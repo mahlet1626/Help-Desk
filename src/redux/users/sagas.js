@@ -24,14 +24,16 @@ const ORDER = 'desc';
 function* loadFromFirestore() {
   try {
     const response = yield call(requestGetUser);
-    console.log(response.data.results)
+    // console.log(response.data.results)
+    // console.log(response)
+    console.log(response.data)
     const data = [];
-    for (let index = 0; index < response.data.results.length; index++) {
+    for (let index = 0; index < response.data.length; index++) {
       data.push({
-        name: response.data.results[index].name,
-        email: response.data.results[index].email,
-        image: response.data.results[index].image,
-        role: response.data.results[index].role,
+        name: response.data[index].name,
+        email: response.data[index].email,
+        image: response.data[index].image,
+        role: response.data[index].role,
        
 
       });
