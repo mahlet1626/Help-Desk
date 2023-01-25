@@ -135,6 +135,21 @@ exports.update = (req, res) => {
        });
   };
  
+  //firebase
+  getAuth()
+  .updateUser(uid, {
+    email: email,
+    emailVerified: false,
+    password: password,   
+    disabled: false,
+  })
+  .then((userRecord) => {
+    // See the UserRecord reference doc for the contents of userRecord.
+    console.log('Successfully updated user', userRecord.toJSON());
+  })
+  .catch((error) => {
+    console.log('Error updating user:', error);
+  });
 
   let user = req.user;
   user = _.extend(user, fields);
@@ -164,23 +179,25 @@ exports.update = (req, res) => {
   
 
 // Delete a user with specified user id in the request
-exports.delete = (req, res)=>{
-    const id = req.params.id;
 
-    User.findByIdAndDelete(id)
-        .then(data => {
-            if(!data){
-                res.status(404).send({ message : `Cannot Delete with id ${id}. Maybe id is wrong`})
-            }else{
-                res.send({
-                    message : "User was deleted successfully!"
-                })
-            }
-        })
-        .catch(err =>{
-            res.status(500).send({
-                message: "Could not delete User with id=" + id
+exports.delete = (req, res) => {
+    let user = req.user;
+    getAuth()
+  .deleteUser(uid)
+  .then(() => {
+    console.log('Successfully deleted user');
+  })
+  .catch((error) => {
+    console.log('Error deleting user:', error);
+  });
+    user.delete((err, deletedUser) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler(err)
             });
+        }
+        res.json({
+            message: 'User deleted successfully'
         });
-}
-
+    });
+};

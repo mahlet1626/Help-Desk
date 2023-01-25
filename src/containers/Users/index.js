@@ -187,8 +187,8 @@ class User extends Component {
     const columns = [
       {
         title: 'Image',
-        dataIndex: 'Profile_image',
-        key: 'Profile_image',
+        dataIndex: 'image',
+        key: 'image',
         width: '111px',
         render: (text, row) => {
          
@@ -321,10 +321,10 @@ class User extends Component {
                           <Label>Profile Image</Label>
 
                           <Input type="file"
-                            label="profile_image"
+                            label="image"
                             id="avatar" name="avatar"
                             accept="image/png, image/jpeg"
-                            onChange={this.onImageChange.bind(this, 'Profile_image')}
+                            onChange={this.onImageChange.bind(this, 'image')}
                             style={{ width: "100%" }}
                           />
                         </Col>
@@ -334,10 +334,10 @@ class User extends Component {
                       <Label>Profile Image</Label>
 
                       <Input type="file"
-                        label="profile_image"
+                        label="image"
                         id="avatar" name="avatar"
                         accept="image/png, image/jpeg"
-                        onChange={this.onImageChange.bind(this, 'Profile_image')}
+                        onChange={this.onImageChange.bind(this, 'image')}
                       />
                     </Fieldset>)
                 }
