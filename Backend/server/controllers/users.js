@@ -8,8 +8,8 @@ const _ = require('lodash');// for replacing?
 const { getAuth } = require ('firebase-admin/auth');
 
 //userby id middleware
-exports.userById=(req,res,next,id)=>{
-    User.findById(id).exec((err,user)=>{
+exports.userById=(req,res,next,id,uid)=>{
+    User.findById(id,uid).exec((err,user)=>{
      if(err|| !user){
         return res.status(400).json({
             error:"User not found"
@@ -134,22 +134,26 @@ exports.update = (req, res) => {
             error: "Image can't be uploaded!"
        });
   };
- 
+  const{name,email,role,password}= fields
+ console.log(req.params.id)
+ console.log("Hellooooo")
+ console.log(req.params.uid)
   //firebase
-//   getAuth()
-//   .updateUser(uid, {
-//     email: email,
-//     emailVerified: false,
-//     password: password,   
-//     disabled: false,
-//   })
-//   .then((userRecord) => {
-//     // See the UserRecord reference doc for the contents of userRecord.
-//     console.log('Successfully updated user', userRecord.toJSON());
-//   })
-//   .catch((error) => {
-//     console.log('Error updating user:', error);
-//   });
+  let uid= req.params.uid
+  getAuth()
+  .updateUser(uid, {
+    email: email,
+    emailVerified: false,
+    password: password,   
+    disabled: false,
+  })
+  .then((userRecord) => {
+    // See the UserRecord reference doc for the contents of userRecord.
+    console.log('Successfully updated user', userRecord.toJSON());
+  })
+  .catch((error) => {
+    console.log('Error updating user:', error);
+  });
 
   let user = req.user;
   user = _.extend(user, fields);
@@ -182,6 +186,7 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     let user = req.user;
+    let uid= req.params.uid;
     getAuth()
   .deleteUser(uid)
   .then(() => {

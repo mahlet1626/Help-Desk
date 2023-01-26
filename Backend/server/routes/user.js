@@ -40,8 +40,8 @@ route.get('/update-user', services.update_user)
 // API
 route.post('/api/users', UserController.create);
 route.get('/api/users', UserController.find);
-route.put('/api/users/:id', UserController.update);
-route.delete('/api/users/:id', UserController.delete);
+route.put('/api/users/:id/:uid', UserController.update);
+route.delete('/api/users/:id/:uid', UserController.delete);
 
 route.param('id',UserController.userById)
 

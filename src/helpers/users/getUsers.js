@@ -14,15 +14,15 @@ export function requestPostUser(form_data) {
         },
     })
 }
-export function requestUpdateUser(form_data, id) {
-    return axios.put(`http://localhost:3000/api/users/${id}`, form_data, {
+export function requestUpdateUser(form_data, id, uid) {
+    return axios.put(`http://localhost:3000/api/users/${id}/${uid}`, form_data, {
         headers: {
             "content-type": "multipart/form-data",
         },
     })
 }
-export function requestDeleteUser(id) {
-    return axios.delete(`http://localhost:3000/api/users/${id}`)
+export function requestDeleteUser(id, uid) {
+    return axios.delete(`http://localhost:3000/api/users/${id}/${uid}`)
 
 }
 

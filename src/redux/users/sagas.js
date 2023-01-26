@@ -36,9 +36,8 @@ function* loadFromFirestore() {
         email: response.data[index].email,
         image: response.data[index].image,
         role: response.data[index].role,
-       
-
       });
+    
     }
     console.log(data)
     yield put(actions.loadFromFireStoreSuccess(data))
@@ -83,7 +82,8 @@ function* storeIntoFirestore({ payload }) {
       form_data.append("role", data.role);
      
       console.log(data.id)
-      const response = yield call(requestUpdateUser, form_data, data.id);
+      console.log(data.uid)
+      const response = yield call(requestUpdateUser, form_data, data.id, data.uid);
       
       yield put({ type: actions.LOAD_FROM_FIRESTORE });
     }
@@ -96,7 +96,7 @@ function* storeIntoFirestore({ payload }) {
   else if (actionName == 'delete') {
     try {
 
-      const response = yield call(requestDeleteUser, data.id);
+      const response = yield call(requestDeleteUser, data.id,data.uid);
       yield put({ type: actions.LOAD_FROM_FIRESTORE });
     }
     catch (error) {
