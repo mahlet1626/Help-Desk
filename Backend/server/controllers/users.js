@@ -136,20 +136,20 @@ exports.update = (req, res) => {
   };
  
   //firebase
-  getAuth()
-  .updateUser(uid, {
-    email: email,
-    emailVerified: false,
-    password: password,   
-    disabled: false,
-  })
-  .then((userRecord) => {
-    // See the UserRecord reference doc for the contents of userRecord.
-    console.log('Successfully updated user', userRecord.toJSON());
-  })
-  .catch((error) => {
-    console.log('Error updating user:', error);
-  });
+//   getAuth()
+//   .updateUser(uid, {
+//     email: email,
+//     emailVerified: false,
+//     password: password,   
+//     disabled: false,
+//   })
+//   .then((userRecord) => {
+//     // See the UserRecord reference doc for the contents of userRecord.
+//     console.log('Successfully updated user', userRecord.toJSON());
+//   })
+//   .catch((error) => {
+//     console.log('Error updating user:', error);
+//   });
 
   let user = req.user;
   user = _.extend(user, fields);

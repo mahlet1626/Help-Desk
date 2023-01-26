@@ -30,6 +30,8 @@ function* loadFromFirestore() {
     const data = [];
     for (let index = 0; index < response.data.length; index++) {
       data.push({
+        id:response.data[index]._id,
+        uid:response.data[index].uid,
         name: response.data[index].name,
         email: response.data[index].email,
         image: response.data[index].image,
@@ -80,8 +82,9 @@ function* storeIntoFirestore({ payload }) {
       form_data.append("image", file);
       form_data.append("role", data.role);
      
-
+      console.log(data.id)
       const response = yield call(requestUpdateUser, form_data, data.id);
+      
       yield put({ type: actions.LOAD_FROM_FIRESTORE });
     }
     catch (error) {
