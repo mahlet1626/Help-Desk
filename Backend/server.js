@@ -57,11 +57,9 @@ admin.initializeApp({
 });
 
 
-
-
 // load routers
 app.use('/', require('./server/routes/user'))
-
+app.use('/', require('./server/routes/project'))
 app.get('/',(req,res)=>{
     res.render('index');
 })
