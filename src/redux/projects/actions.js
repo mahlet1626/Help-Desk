@@ -1,4 +1,4 @@
-const DOCUMENT = 'USER_';
+const DOCUMENT = 'PROJECT_';
 
 const actions = {
   LOAD_FROM_FIRESTORE: DOCUMENT + 'LOAD_FROM_FIRESTORE',

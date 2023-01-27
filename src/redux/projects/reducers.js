@@ -3,9 +3,9 @@ import actions from './actions';
 const initState = {
   isLoading: true,
   errorMessage: false,
-  users: {},
+  projects: {},
   modalActive: false,
-  user: {
+  project: {
     key: null,
     id: new Date().getTime(),
     title: '',
@@ -34,7 +34,7 @@ export default function reducer(
       return {
         ...state,
         isLoading: false,
-        users: payload.data,
+        projects: payload.data,
         errorMessage: false,
       };
     case actions.LOAD_FROM_FIRESTORE_ERROR:
@@ -47,12 +47,12 @@ export default function reducer(
       return {
         ...state,
         modalActive: !state.modalActive,
-        user: payload.data == null ? initState.user : payload.data,
+        project: payload.data == null ? initState.project : payload.data,
       };
     case actions.FIRESTORE_UPDATE:
       return {
         ...state,
-        user: payload.data,
+        project: payload.data,
       };
     default:
       return state;

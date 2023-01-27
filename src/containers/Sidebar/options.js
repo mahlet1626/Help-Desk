@@ -6,14 +6,14 @@ const options = [
     leftIcon: 'ion-speedometer',
   },
   {
-    key: 'my_projects',
-    label: 'My Projects',
-    leftIcon: 'ion-android-mail',
-  },
-  {
     key: 'new_project',
     label: 'New Project',
     leftIcon: 'ion-chatbubbles',
+  },
+  {
+    key: 'my_projects',
+    label: 'My Projects',
+    leftIcon: 'ion-android-mail',
   },
   {
     key: 'my_tickets',
