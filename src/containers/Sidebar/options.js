@@ -11,8 +11,8 @@ const options = [
     leftIcon: 'ion-chatbubbles',
   },
   {
-    key: 'my_projects',
-    label: 'My Projects',
+    key: 'projects',
+    label: 'Projects',
     leftIcon: 'ion-android-mail',
   },
   {

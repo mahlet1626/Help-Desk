@@ -18,7 +18,7 @@ import DevReducers from '../customApp/redux/reducers';
 import Articles from './articles/reducers';
 import Investors from './investors/reducers';
 import Users from './users/reducers';
-
+import Projects from './projects/reducers';
 export default {
   Auth,
   App,
@@ -39,5 +39,6 @@ export default {
   Articles,
   Investors,
   Users,
+  Projects,
   ...DevReducers,
 };

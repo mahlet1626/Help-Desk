@@ -13,8 +13,8 @@ const routes = [
     component: asyncComponent(() => import('../Dashboard')),
   },
   {
-    path: 'my_projects',
-    component: asyncComponent(() => import('../Projects/my_projects.js')),
+    path: 'projects',
+    component: asyncComponent(() => import('../Projects/projects.js')),
   },
   {
     path: 'new_project',
