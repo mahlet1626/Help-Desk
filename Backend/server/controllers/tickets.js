@@ -1,42 +1,42 @@
-const Project = require('../models/projects');
-const route = require('../routes/project')
+const Ticket = require('../models/tickets');
+const route = require('../routes/ticket')
 const path = require('path');
 const formidable = require('formidable');
 const _ = require('lodash');// for replacing?
 const { getAuth } = require ('firebase-admin/auth');
 
-//projectby id middleware
-exports.projectById=(req,res,next,id)=>{
-    Project.findById(id).exec((err,project)=>{
-     if(err|| !project){
+//ticketby id middleware
+exports.ticketById=(req,res,next,id)=>{
+    Ticket.findById(id).exec((err,ticket)=>{
+     if(err|| !ticket){
         return res.status(400).json({
-            error:"Project not found"
+            error:"Ticket not found"
         });
      }
-     req.project = project;
+     req.ticket = ticket;
         next();
        
     });
     
 }
 
-// create and save new project
+// create and save new ticket
 exports.create = (req, res) => {
     let form =new formidable.IncomingForm()
     // form.keepExtensions = true;
     form.parse(req, (err, fields) => {
 
         // check for all fields
-        const { title, department, description, priority} = fields;
+        const { issue_title , project, issue_priority, assigned_to, issue_status} = fields;
 
-        if (!title || !department || !description || !priority) {
+        if (!issue_title || !project || !issue_priority || !assigned_to || !issue_status) {
             return res.status(400).json({
                 error: 'All fields are required'
             });
         } 
-        let project = new Project(fields); 
+        let ticket = new Ticket(fields); 
 
-        project.save((err,result)=>{
+        ticket.save((err,result)=>{
             if (err){
                 return res.status(400).json({
                 err
@@ -47,48 +47,47 @@ exports.create = (req, res) => {
     });
 };
 
-// retrieve and return all projects/ retrive and return a single project
+// retrieve and return all tickets/ retrive and return a single ticket
 exports.find = (req, res)=>{
 
     if(req.query.id){
         const id = req.query.id;
 
-       Project.findById(id)
+       Ticket.findById(id)
             .then(data =>{
                 if(!data){
-                    res.status(404).send({ message : "Not found project with id "+ id})
+                    res.status(404).send({ message : "Not found ticket with id "+ id})
                 }else{
                     res.send(data)
                 }
             })
             .catch(err =>{
-                res.status(500).send({ message: "Error retrieving project with id " + id})
+                res.status(500).send({ message: "Error retrieving ticket with id " + id})
             })
 
     }else{
-        Project.find()
-            .then(project => {
-                res.send(project)
+        Ticket.find()
+            .then(ticket => {
+                res.send(ticket)
             })
             .catch(err => {
-                res.status(500).send({ message : err.message || "Error Occurred while retriving project information" })
+                res.status(500).send({ message : err.message || "Error Occurred while retriving ticket information" })
             })
     }
 
     
 }
 
-// Update a new idetified project by project id
+// Update a new idetified ticket by ticket id
 exports.update = (req, res) => {
 
     let form =new formidable.IncomingForm()
-   
     form.parse(req,(err,fields)=>{
  
-  let project = req.project;
-  project = _.extend(project, fields);
+    let ticket = req.ticket;
+    ticket = _.extend(ticket, fields);
 
-  project.save((err,result)=>{
+    ticket.save((err,result)=>{
     if (err){
         return res.status(400).json({
         err
@@ -100,19 +99,19 @@ exports.update = (req, res) => {
 });
 };
   
-// Delete a project with specified project id in the request
+// Delete a ticket with specified ticket id in the request
 
 exports.delete = (req, res) => {
-    let project = req.project;
+    let ticket = req.ticket;
     
-    project.delete((err, deletedProject) => {
+    ticket.delete((err, deletedTicket) => {
         if (err){
             return res.status(400).json({
             err
         });
         }
         res.json({
-            message: 'Project deleted successfully'
+            message: 'Ticket deleted successfully'
         });
     });
 };
