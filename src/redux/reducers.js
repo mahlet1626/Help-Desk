@@ -19,6 +19,7 @@ import Articles from './articles/reducers';
 import Investors from './investors/reducers';
 import Users from './users/reducers';
 import Projects from './projects/reducers';
+import Tickets from './tickets/reducers';
 export default {
   Auth,
   App,
@@ -40,5 +41,6 @@ export default {
   Investors,
   Users,
   Projects,
+  Tickets,
   ...DevReducers,
 };

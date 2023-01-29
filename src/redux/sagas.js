@@ -14,6 +14,7 @@ import articles from './articles/sagas';
 import investors from './investors/sagas';
 import users from './users/sagas';
 import projects from './projects/sagas';
+import tickets from './tickets/sagas';
 export default function* rootSaga(getState) {
   yield all([
     authSagas(),
@@ -31,5 +32,6 @@ export default function* rootSaga(getState) {
     investors(),
     users(),
     projects(),
+    tickets(),
   ]);
 }
