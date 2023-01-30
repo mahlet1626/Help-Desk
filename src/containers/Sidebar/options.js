@@ -5,11 +5,11 @@ const options = [
     label: 'Dashboard',
     leftIcon: 'ion-speedometer',
   },
-  {
-    key: 'new_project',
-    label: 'New Project',
-    leftIcon: 'ion-chatbubbles',
-  },
+  // {
+  //   key: 'new_project',
+  //   label: 'New Project',
+  //   leftIcon: 'ion-chatbubbles',
+  // },
   {
     key: 'projects',
     label: 'Projects',

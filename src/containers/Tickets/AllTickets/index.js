@@ -342,7 +342,7 @@ class Ticket extends Component {
                   />
                 </Fieldset>
 
-{/* 
+
                 <Fieldset>
                       <Label>Project</Label>
                       <Select
@@ -364,7 +364,7 @@ class Ticket extends Component {
                             );
                           })}
                       </Select>
-                    </Fieldset> */}
+                    </Fieldset>
 
                 <Fieldset>
                   <Label>Issue Priority</Label>
