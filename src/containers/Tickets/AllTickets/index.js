@@ -61,8 +61,20 @@ class Ticket extends Component {
     filterDropdownVisible: false,
     searchText: '',
     filtered: false,
-    vehicle: "",
-    vehicles: [],
+    users:[],
+    projects:[],
+
+  }
+  async componentDidMount() {
+    await this.props.getTickets();
+
+    await axios.get("http://localhost:3000/api/users/").then((response) => {
+        this.setState({users: response.data})     
+    });
+
+    await axios.get("http://localhost:3000/api/projects/").then((response) => {
+        this.setState({projects: response.data})     
+    });
 
   }
   onSearch() {
@@ -89,28 +101,7 @@ class Ticket extends Component {
 
   }
 
-  componentDidMount() {
-    console.log(this.props)
-    this.props.loadFromFireStore();
-    
-    axios.get("http://localhost:3000/api/projects").then((response) => {
-      for (let index = 0; index < response.data.length; index++) {
-        this.state.vehicles.push({
-          id: response.data[index].id,
-          name: response.data[index].title,
-        });
-      }    
-    });
-    axios.get("http://localhost:3000/api/users").then((response) => {
-      for (let index = 0; index < response.data.length; index++) {
-        this.state.vehicles.push({
-          id: response.data[index].id,
-          name: response.data[index].name,
-        });
-      }    
-    });
-
-  }
+  
 
 
   onInputChange(event) {
@@ -126,10 +117,7 @@ class Ticket extends Component {
     // }
   }
 
-  async componentDidMount() {
-    console.log(this.props)
-    await this.props.loadFromFireStore();
-  }
+ 
 
   handleRecord = async (actionName, ticket) => {
     if (ticket.key && actionName !== 'delete') actionName = 'update';
@@ -163,36 +151,37 @@ class Ticket extends Component {
       image: e.target.files[0],
     });
   };
+  userValue = ()=>{
+    const { ticket } = clone(this.props);
+    if (ticket.assigned_to != null && ticket.assigned_to['name']){
+      return ticket.assigned_to['name']
+    }
+    else{
+      return ticket.assigned_to
+    }
+  }
+
+  projectValue = ()=>{
+    const { ticket } = clone(this.props);
+    if (ticket.project != null && ticket.project['title']){
+      return ticket.project['title']
+    }
+    else{
+      return ticket.project
+    }
+  }
+
   render() {
-    let { searchText } = this.state;
-    const filterDropdown = (
-      <FilterDropdown
-        searchText={searchText}
-        onInputChange={this.onInputChange}
-        onSearch={this.onSearch}
-      />
-    );
-    const { modalActive, tickets
-    } = this.props;
-    console.log(this.props)
+    const { modalActiveTicket, tickets } = this.props;
     const { ticket } = clone(this.props);
     const dataSource = [];
-    if (this.state.dataList.length != 0) {
-      Object.keys(this.state.dataList).map((ticket, index) => {
-        return dataSource.push({
-          ...this.state.dataList[ticket],
-          key: ticket,
-        });
+    Object.keys(tickets).map((ticket, index) => {
+      return dataSource.push({
+        ...tickets[ticket],
+        key: ticket,
       });
-    }
-    else {
-      Object.keys(tickets).map((ticket, index) => {
-        return dataSource.push({
-          ...tickets[ticket],
-          key: ticket,
-        });
-      });
-    }
+      
+    });
 
 
 
@@ -203,18 +192,8 @@ class Ticket extends Component {
         dataIndex: 'issue_title',
         key: 'issue_title',
         width: '200px',
-        filterDropdown,
-        filterIcon: (
-          <Icon
-            type="search"
-            style={{ color: this.state.filtered ? '#108ee9' : '#aaa' }}
-          />
-        ),
-        filterDropdownVisible: this.state.filterDropdownVisible,
-        onFilterDropdownVisibleChange: visible =>
-          this.setState({ filterDropdownVisible: visible }, () =>
-            document.getElementById('tableFilterInput').focus()
-          ),
+       
+        
         // sorter: (a, b) => {
         //   if (a.name < b.name) return -1;
         //   if (a.name > b.name) return 1;
@@ -321,7 +300,7 @@ class Ticket extends Component {
               </ButtonHolders>
             </TitleWrapper>
             <Modal
-              visible={modalActive}
+              // visible={modalActive}
               onClose={this.props.toggleModal.bind(this, null)}
               title={ticket.key ? 'Update Ticket' : 'Add New Ticket'}
               okText={ticket.key ? 'Update Ticket' : 'Add Ticket'}
@@ -342,29 +321,29 @@ class Ticket extends Component {
                   />
                 </Fieldset>
 
-
                 <Fieldset>
-                      <Label>Project</Label>
+                  <Label>Project</Label>
                       <Select
-                        defaultValue={ticket.project}
-                        placeholder="Select Project"
-                        onChange={(e) => {
-                          let { ticket } = clone(this.props);
+                      showSearch={true}
+                      placeholder="Project"
+                      onChange={this.onSelectChange.bind(this, 'project')}
+                      value={this.projectValue()}
+                      filterOption={(inputValue, option) =>
+                        // console.log(option.props.children.toLowerCase().includes(inputValue.toLowerCase()),inputValue)
+                        option.props.children.toLowerCase().includes(inputValue.toLowerCase())
+                      }
+                      style={{ width: '100%' }}
+                    > 
+                    {
+                      this.state.projects.map((project,i)=>{
                         
-                          ticket['project'] = e;
-                          this.props.update(ticket );
-                          console.log(ticket.vehicle);
-                        }}
-                        style={{ width: '100%' }}
-                      >
-                        {
-                          this.state.vehicles.map((name) => {
-                            return (
-                              <Option value={name.id} key={name.id}>{name.name} </Option>
-                            );
-                          })}
-                      </Select>
-                    </Fieldset>
+                        return <Option key={project.id} value={[project.title, project.id]} >{project.title}</Option>
+                      })
+                     
+                    } 
+  
+                    </Select>
+                </Fieldset>
 
                 <Fieldset>
                   <Label>Issue Priority</Label>
@@ -383,13 +362,26 @@ class Ticket extends Component {
 
                 <Fieldset>
                   <Label>Assign to</Label>
-                  <Input
-                    label="assigned_to"
-                    placeholder="Assign to"
-                    value={ticket.assigned_to}
-                    onChange={this.onRecordChange.bind(this, 'assigned_to')}
-                  />
+                      <Select
+                      showSearch={true}
+                      placeholder="Assigned to"
+                      onChange={this.onSelectChange.bind(this, 'assigned_to')}
+                      value={this.userValue()}
+                      filterOption={(inputValue, option) =>
+                        // console.log(option.props.children.toLowerCase().includes(inputValue.toLowerCase()),inputValue)
+                        option.props.children.toLowerCase().includes(inputValue.toLowerCase())
+                      }
+                      style={{ width: '100%' }}
+                    > 
+                    {
+                      this.state.users.map((user,i)=>{
+                        return <Option key={user.id} value={[user.name, user.id]} >{user.name}</Option>
+                      })
+                    } 
+  
+                    </Select>
                 </Fieldset>
+
                 
                 <Fieldset>
                   <Label>Issue Status</Label>

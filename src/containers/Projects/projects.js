@@ -202,7 +202,7 @@ class Project extends Component {
         title: 'Title',
         dataIndex: 'title',
         key: 'title',
-        width: '200px',
+        width: '100px',
         filterDropdown,
         filterIcon: (
           <Icon
@@ -228,7 +228,7 @@ class Project extends Component {
         title: 'Department',
         dataIndex: 'department',
         key: 'department',
-        width: '250px',
+        width: '100px',
         sorter: (a, b) => {
           if (a.department < b.department) return -1;
           if (a.department > b.department) return 1;
@@ -240,7 +240,7 @@ class Project extends Component {
         title: 'Description',
         dataIndex: 'description',
         key: 'description',
-        width: '220px',
+        width: '520px',
         sorter: (a, b) => {
           if (a.description < b.description) return -1;
           if (a.description > b.description) return 1;
@@ -254,7 +254,7 @@ class Project extends Component {
         title: 'Priority',
         dataIndex: 'priority',
         key: 'priority',
-        width: '220px',
+        width: '100px',
         sorter: (a, b) => {
           if (a.priority < b.priority) return -1;
           if (a.priority > b.priority) return 1;

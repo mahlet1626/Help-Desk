@@ -55,7 +55,7 @@ function* storeIntoFirestore({ payload }) {
       // const date = new Date();
       let form_data = new FormData();
       console.log(data)
-      form_data.append("title", data.tile);
+      form_data.append("title", data.title);
       form_data.append("department", data.department);
       form_data.append("description", data.description);
       form_data.append("priority", data.priority);
@@ -75,7 +75,7 @@ function* storeIntoFirestore({ payload }) {
       // const date = new Date();
       let form_data = new FormData();
 
-      form_data.append("title", data.tile);
+      form_data.append("title", data.title);
       form_data.append("department", data.department);
       form_data.append("description", data.description);
       form_data.append("priority", data.priority);
