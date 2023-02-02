@@ -23,7 +23,6 @@ exports.ticketById=(req,res,next,id)=>{
 // create and save new ticket
 exports.create = (req, res) => {
     let form =new formidable.IncomingForm()
-    // form.keepExtensions = true;
     form.parse(req, (err, fields) => {
 
         // check for all fields
@@ -78,7 +77,7 @@ exports.find = (req, res)=>{
     
 }
 
-// Update a new idetified ticket by ticket id
+// Update a new identified ticket by ticket id
 exports.update = (req, res) => {
 
     let form =new formidable.IncomingForm()
