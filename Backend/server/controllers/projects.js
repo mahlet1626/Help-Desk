@@ -112,7 +112,7 @@ exports.delete = (req, res) => {
         });
         }
         res.json({
-            message: 'Project deleted successfully'
+            message: 'Project deleted successfully!'
         });
     });
 };

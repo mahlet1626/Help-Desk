@@ -110,7 +110,7 @@ exports.delete = (req, res) => {
         });
         }
         res.json({
-            message: 'Ticket deleted successfully'
+            message: 'Ticket deleted successfully!'
         });
     });
 };

@@ -202,7 +202,7 @@ exports.delete = (req, res) => {
             });
         }
         res.json({
-            message: 'User deleted successfully'
+            message: 'User deleted successfully!'
         });
     });
 };
