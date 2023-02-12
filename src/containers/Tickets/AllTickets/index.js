@@ -11,6 +11,7 @@ import Box from '../../../components/utility/box';
 import ContentHolder from '../../../components/utility/contentHolder';
 import Popconfirms from '../../../components/feedback/popconfirm';
 import { Row, Col } from 'antd';
+import CardWrapper, {  StatusTag } from './invoice.style';
 import {
   ActionBtn,
   Fieldset,
@@ -21,7 +22,7 @@ import {
   ActionWrapper,
   ComponentTitle,
   TableWrapper,
-  StatusTag,
+ 
 } from './articles.style';
 import clone from 'clone';
 import axios from 'axios';
@@ -144,17 +145,24 @@ class Tickets extends Component {
           if (a.issue_priority > b.issue_priority) return 1;
           return 0;
         },
-        // render: (text, row) => {
-        //   return (
-        //     row.issue_priority == "Low" ? (
-              
-        //         <b color="#f50">{row.priority}</b>
-        //     ) :row.issue_priority == "Medium" ? (
-        //       <b color="#90EE90">{row.priority}</b>
-        //       ): (   <b color="#808080">{row.priority}</b>
-        //     )
-        //   );
-        // },
+        render: (text, issue_priority) => {
+          let className;
+          if (text === 'Low' ) {
+            className = 'low' ;
+            
+          } else if (
+            text === 'Medium' 
+           
+          ) {
+            className = 'medium';
+          } else if (
+            text === 'High' 
+           
+          ) {
+            className = 'high';
+          }
+          return <StatusTag className={className}>{text}</StatusTag>;
+        },
       },
       {
         title: 'Assigned to',
@@ -179,16 +187,30 @@ class Tickets extends Component {
           if (a.issue_status > b.issue_status) return 1;
           return 0;
         },
-        // render: (text, row) => {
-        //   return (
-        //     row.priority == "high" ? (
-        //       <Tag className="mr-5" color="#f50">{row.priority}</Tag>
-        //     ) :row.priority == "medium" ? (
-        //       <Tag className="mr-5" color="#90EE90">{row.priority}</Tag>
-        //       ): (<Tag className="mr-5" color="#808080">{row.priority}</Tag>
-        //     )
-        //   );
-        // },
+        render: (text, issue_status) => {
+          let className;
+          if (text === 'Started' ) {
+            className = 'started' ;
+            
+          } else if (
+            text === 'In Progress' 
+           
+          ) {
+            className = 'in_progress';
+          } else if (
+            text === 'Fixed' 
+           
+          ) {
+            className = 'fixed';
+          }
+          else if (
+            text === 'Failed' 
+           
+          ) {
+            className = 'failed';
+          }
+          return <StatusTag className={className}>{text}</StatusTag>;
+        },
       },
 
     
